@@ -12,8 +12,8 @@
     "password": "1234"
   },
   {
-    "accumulatedCommission": 0.0,
-    "completedSalesCount": 0,
+    "accumulatedCommission": 3.25,
+    "completedSalesCount": 1,
     "employeeCode": 202,
     "salary": 460.0,
     "id": "1730000003",
