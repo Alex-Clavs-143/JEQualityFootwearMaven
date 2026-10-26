@@ -4,10 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,5 +189,209 @@ public class JsonDataManager {
         }
 
         return loadedAny;
+    }
+
+
+    private static PrintWriter createCsvWriter(String fileName) throws IOException {
+        FileOutputStream fos = new FileOutputStream(fileName);
+        fos.write(0xEF);
+        fos.write(0xBB);
+        fos.write(0xBF);
+        return new PrintWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
+    }
+
+    private static String escapeCsv(String value) {
+        if (value == null) {
+            return "";
+        }
+        String cleaned = value.replace("\"", "\"\"");
+        if (cleaned.contains(";") || cleaned.contains("\"") || cleaned.contains("\n")) {
+            return "\"" + cleaned + "\"";
+        }
+        return cleaned;
+    }
+
+    public static boolean exportAdminsToCsv(SalesManagement salesManagement) {
+        String fileName = "reporte_admins.csv";
+        try (PrintWriter writer = createCsvWriter(fileName)) {
+            writer.println("Codigo Empleado;Cedula/RUC;Nombre Completo;Telefono;Correo Electronico;Usuario;Sueldo Base ($ USD)");
+            for (StaffMember staff : salesManagement.getStaffList()) {
+                if (staff instanceof Admin) {
+                    writer.println(staff.getEmployeeCode() + ";"
+                            + escapeCsv(staff.getId()) + ";"
+                            + escapeCsv(staff.getName()) + ";"
+                            + escapeCsv(staff.getPhoneNumber()) + ";"
+                            + escapeCsv(staff.getEmail()) + ";"
+                            + escapeCsv(staff.getUsername()) + ";"
+                            + String.format("%.2f", staff.getSalary()));
+                }
+            }
+            System.out.println("[OK] Reporte generado: " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean exportSellersToCsv(SalesManagement salesManagement) {
+        String fileName = "reporte_sellers.csv";
+        try (PrintWriter writer = createCsvWriter(fileName)) {
+            writer.println("Codigo Empleado;Cedula/RUC;Nombre Completo;Telefono;Correo Electronico;Usuario;Ventas Cerradas;Sueldo Base ($ USD);Comisiones ($ USD);Sueldo Total ($ USD)");
+            for (StaffMember staff : salesManagement.getStaffList()) {
+                if (staff instanceof Seller) {
+                    Seller seller = (Seller) staff;
+                    writer.println(seller.getEmployeeCode() + ";"
+                            + escapeCsv(seller.getId()) + ";"
+                            + escapeCsv(seller.getName()) + ";"
+                            + escapeCsv(seller.getPhoneNumber()) + ";"
+                            + escapeCsv(seller.getEmail()) + ";"
+                            + escapeCsv(seller.getUsername()) + ";"
+                            + seller.getCompletedSalesCount() + ";"
+                            + String.format("%.2f", seller.getSalary()) + ";"
+                            + String.format("%.2f", seller.getAccumulatedCommission()) + ";"
+                            + String.format("%.2f", seller.calculateSalary()));
+                }
+            }
+            System.out.println("[OK] Reporte generado: " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean exportCustomersToCsv(SalesManagement salesManagement) {
+        String fileName = "reporte_customers.csv";
+        try (PrintWriter writer = createCsvWriter(fileName)) {
+            writer.println("Codigo Cliente;Cedula/RUC;Nombre Completo;Telefono;Correo Electronico;Usuario;Compras Realizadas");
+            for (Customer customer : salesManagement.getCustomerDirectory()) {
+                int purchases = customer.getPurchaseHistory() != null ? customer.getPurchaseHistory().size() : 0;
+                writer.println(customer.getCustomerCode() + ";"
+                        + escapeCsv(customer.getId()) + ";"
+                        + escapeCsv(customer.getName()) + ";"
+                        + escapeCsv(customer.getPhoneNumber()) + ";"
+                        + escapeCsv(customer.getEmail()) + ";"
+                        + escapeCsv(customer.getUsername()) + ";"
+                        + purchases);
+            }
+            System.out.println("[OK] Reporte generado: " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean exportInventoryToCsv(Inventory inventory) {
+        String fileName = "reporte_inventory.csv";
+        try (PrintWriter writer = createCsvWriter(fileName)) {
+            writer.println("Codigo Producto;Modelo / Nombre;Seccion;Subcategoria;Talla;Color;Precio Unitario ($ USD);Stock Actual;Unidades Vendidas;Ingresos Generados ($ USD)");
+            for (Product product : inventory.getProducts()) {
+                String section = product.getCategory() != null ? product.getCategory().getGender() : "Sin Seccion";
+                String subCat = product.getCategory() != null ? product.getCategory().getCategoryName() : "Sin Categoria";
+                float revenue = product.getUnitsSold() * product.getPrice();
+                writer.println(escapeCsv(product.getProductId()) + ";"
+                        + escapeCsv(product.getName()) + ";"
+                        + escapeCsv(section) + ";"
+                        + escapeCsv(subCat) + ";"
+                        + product.getSize() + ";"
+                        + escapeCsv(product.getColor()) + ";"
+                        + String.format("%.2f", product.getPrice()) + ";"
+                        + product.getCurrentStock() + ";"
+                        + product.getUnitsSold() + ";"
+                        + String.format("%.2f", revenue));
+            }
+            System.out.println("[OK] Reporte generado: " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean exportInvoicesToCsv(SalesManagement salesManagement) {
+        String fileName = "reporte_invoices.csv";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try (PrintWriter writer = createCsvWriter(fileName)) {
+            writer.println("Nro Factura;Fecha Emision;Cedula/RUC Cliente;Nombre Cliente;Cod Vendedor;Nombre Vendedor;Detalle Productos;Subtotal ($ USD);IVA 15% ($ USD);Total Factura ($ USD);Efectivo Recibido ($ USD);Vuelto ($ USD);Canal de Entrega");
+            for (Invoice inv : salesManagement.getSalesRegistry()) {
+                StringBuilder itemsSummary = new StringBuilder();
+                if (inv.getPurchasedItems() != null && inv.getQuantities() != null) {
+                    for (int i = 0; i < inv.getPurchasedItems().size(); i++) {
+                        Product p = inv.getPurchasedItems().get(i);
+                        int q = inv.getQuantities().get(i);
+                        if (i > 0) {
+                            itemsSummary.append(" | ");
+                        }
+                        itemsSummary.append(q).append("x ").append(p.getName()).append(" (").append(p.getProductId()).append(")");
+                    }
+                }
+                String dateStr = inv.getDate() != null ? dateFormat.format(inv.getDate()) : "";
+                String custId = inv.getCustomer() != null ? inv.getCustomer().getId() : "";
+                String custName = inv.getCustomer() != null ? inv.getCustomer().getName() : "";
+                int sellerCode = inv.getSeller() != null ? inv.getSeller().getEmployeeCode() : 0;
+                String sellerName = inv.getSeller() != null ? inv.getSeller().getName() : "";
+
+                writer.println(escapeCsv(inv.getInvoiceNumber()) + ";"
+                        + escapeCsv(dateStr) + ";"
+                        + escapeCsv(custId) + ";"
+                        + escapeCsv(custName) + ";"
+                        + sellerCode + ";"
+                        + escapeCsv(sellerName) + ";"
+                        + escapeCsv(itemsSummary.toString()) + ";"
+                        + String.format("%.2f", inv.getSubtotal()) + ";"
+                        + String.format("%.2f", inv.getVatAmount()) + ";"
+                        + String.format("%.2f", inv.getTotalAmount()) + ";"
+                        + String.format("%.2f", inv.getCashTendered()) + ";"
+                        + String.format("%.2f", inv.getChangeDue()) + ";"
+                        + escapeCsv(inv.getIssuanceChannel()));
+            }
+            System.out.println("[OK] Reporte generado: " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean exportPromotionsToCsv(PromotionCalendar promotionCalendar) {
+        String fileName = "reporte_promotions.csv";
+        try (PrintWriter writer = createCsvWriter(fileName)) {
+            writer.println("Nro;Sucursal;Direccion;Telefono;Horario;Detalle de Promocion Programada");
+            String schedule = promotionCalendar.getOpeningHour() + ":00 a " + promotionCalendar.getClosingHour() + ":00";
+            List<String> promos = promotionCalendar.getScheduledPromotions();
+            if (promos == null || promos.isEmpty()) {
+                writer.println("1;"
+                        + escapeCsv(promotionCalendar.getBranchName()) + ";"
+                        + escapeCsv(promotionCalendar.getBranchAddress()) + ";"
+                        + escapeCsv(promotionCalendar.getContactPhone()) + ";"
+                        + escapeCsv(schedule) + ";"
+                        + "Sin promociones activas");
+            } else {
+                for (int i = 0; i < promos.size(); i++) {
+                    writer.println((i + 1) + ";"
+                            + escapeCsv(promotionCalendar.getBranchName()) + ";"
+                            + escapeCsv(promotionCalendar.getBranchAddress()) + ";"
+                            + escapeCsv(promotionCalendar.getContactPhone()) + ";"
+                            + escapeCsv(schedule) + ";"
+                            + escapeCsv(promos.get(i)));
+                }
+            }
+            System.out.println("[OK] Reporte generado: " + fileName);
+            return true;
+        } catch (IOException e) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static void exportAllToCsv(Inventory inventory, SalesManagement salesManagement, PromotionCalendar promotionCalendar) {
+        exportAdminsToCsv(salesManagement);
+        exportSellersToCsv(salesManagement);
+        exportCustomersToCsv(salesManagement);
+        exportInventoryToCsv(inventory);
+        exportInvoicesToCsv(salesManagement);
+        exportPromotionsToCsv(promotionCalendar);
     }
 }

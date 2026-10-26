@@ -107,6 +107,7 @@ public class JEQualityFootwearSystem {
             System.out.println("8.  Consultar rol de pagos y comisiones de vendedores");
             System.out.println("9.  Ver Registro de Ventas, Caja y Productos Mas Vendidos");
             System.out.println("10. Agregar nueva fecha de promocion/oferta");
+            System.out.println("11. Generar reportes en Excel (CSV) de los archivos JSON");
             System.out.println("0.  Cerrar sesion");
             System.out.print("Seleccione una opcion: ");
 
@@ -141,6 +142,9 @@ public class JEQualityFootwearSystem {
                     break;
                 case 10:
                     addPromotionMenu();
+                    break;
+                case 11:
+                    generateCsvReportsMenu();
                     break;
                 case 0:
                     System.out.println("Sesion de administrador cerrada correctamente.");
@@ -809,6 +813,53 @@ public class JEQualityFootwearSystem {
         promotionCalendar.addPromotion(dates, description, models);
         saveCurrentState();
         System.out.println("[OK] Promocion agregada exitosamente al calendario.");
+    }
+
+    private static void generateCsvReportsMenu() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- GENERAR REPORTES EN EXCEL (CSV) DESDE ARCHIVOS JSON ---");
+            System.out.println("1. Exportar Reporte de Administradores (admins.json -> reporte_admins.csv)");
+            System.out.println("2. Exportar Reporte de Vendedores y Comisiones (sellers.json -> reporte_sellers.csv)");
+            System.out.println("3. Exportar Reporte de Clientes (customers.json -> reporte_customers.csv)");
+            System.out.println("4. Exportar Reporte de Inventario y Stock (inventory.json -> reporte_inventory.csv)");
+            System.out.println("5. Exportar Reporte de Facturas y Ventas (invoices.json -> reporte_invoices.csv)");
+            System.out.println("6. Exportar Reporte de Promociones (promotions.json -> reporte_promotions.csv)");
+            System.out.println("7. Exportar TODOS los reportes a la vez");
+            System.out.println("0. Volver al Panel de Administrador");
+            System.out.print("Seleccione una opcion: ");
+
+            int option = readInt();
+            switch (option) {
+                case 1:
+                    JsonDataManager.exportAdminsToCsv(salesManagement);
+                    break;
+                case 2:
+                    JsonDataManager.exportSellersToCsv(salesManagement);
+                    break;
+                case 3:
+                    JsonDataManager.exportCustomersToCsv(salesManagement);
+                    break;
+                case 4:
+                    JsonDataManager.exportInventoryToCsv(inventory);
+                    break;
+                case 5:
+                    JsonDataManager.exportInvoicesToCsv(salesManagement);
+                    break;
+                case 6:
+                    JsonDataManager.exportPromotionsToCsv(promotionCalendar);
+                    break;
+                case 7:
+                    JsonDataManager.exportAllToCsv(inventory, salesManagement, promotionCalendar);
+                    System.out.println("[SISTEMA] Todos los reportes CSV han sido generados en la carpeta raiz del proyecto.");
+                    break;
+                case 0:
+                    back = true;
+                    break;
+                default:
+                    System.out.println("[!] Opcion invalida.");
+            }
+        }
     }
 
     private static void registerNewCustomerSelfService() {
