@@ -16,5 +16,14 @@
     "email": "sd",
     "username": "cli1002",
     "password": "1234"
+  },
+  {
+    "customerCode": 1003,
+    "id": "1234567890",
+    "name": "prueba1",
+    "phoneNumber": "0987654321",
+    "email": "prueba1@gmail.com",
+    "username": "prueba1.1",
+    "password": "1234567890"
   }
 ]
