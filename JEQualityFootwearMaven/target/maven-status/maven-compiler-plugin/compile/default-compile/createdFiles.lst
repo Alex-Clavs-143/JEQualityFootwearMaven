@@ -1,0 +1,15 @@
+ec\edu\espe\JEQualityFootwear\view\JEQualityFootwearSystem.class
+ec\edu\espe\JEQualityFootwear\model\JsonDataManager$SystemDatabase.class
+ec\edu\espe\JEQualityFootwear\model\Category.class
+ec\edu\espe\JEQualityFootwear\model\Payment.class
+ec\edu\espe\JEQualityFootwear\model\StaffMember.class
+ec\edu\espe\JEQualityFootwear\model\Seller.class
+ec\edu\espe\JEQualityFootwear\model\Admin.class
+ec\edu\espe\JEQualityFootwear\model\JsonDataManager.class
+ec\edu\espe\JEQualityFootwear\model\Product.class
+ec\edu\espe\JEQualityFootwear\model\PromotionCalendar.class
+ec\edu\espe\JEQualityFootwear\model\Invoice.class
+ec\edu\espe\JEQualityFootwear\model\Customer.class
+ec\edu\espe\JEQualityFootwear\model\SalesManagement.class
+ec\edu\espe\JEQualityFootwear\model\Inventory.class
+ec\edu\espe\JEQualityFootwear\model\Person.class

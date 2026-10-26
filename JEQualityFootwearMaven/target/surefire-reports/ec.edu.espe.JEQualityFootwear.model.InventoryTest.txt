@@ -1,0 +1,26 @@
+-------------------------------------------------------------------------------
+Test set: ec.edu.espe.JEQualityFootwear.model.InventoryTest
+-------------------------------------------------------------------------------
+Tests run: 12, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.187 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.InventoryTest
+ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetLastAuditDate -- Time elapsed: 0.014 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: No se debe permitir establecer una fecha de auditoria nula ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
+	at ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetLastAuditDate(InventoryTest.java:210)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+
+ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetProducts -- Time elapsed: 0.004 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: No se debe permitir reemplazar el inventario con una lista nula ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
+	at ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetProducts(InventoryTest.java:192)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+
