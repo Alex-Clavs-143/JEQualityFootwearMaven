@@ -1,0 +1,26 @@
+[
+  {
+    "accumulatedCommission": 3.25,
+    "completedSalesCount": 1,
+    "employeeCode": 201,
+    "salary": 460.0,
+    "id": "1720000002",
+    "name": "Henry Chalcualan",
+    "phoneNumber": "0993334445",
+    "email": "henry.chalcualan@espe.edu.ec",
+    "username": "henry",
+    "password": "1234"
+  },
+  {
+    "accumulatedCommission": 0.0,
+    "completedSalesCount": 0,
+    "employeeCode": 202,
+    "salary": 460.0,
+    "id": "1730000003",
+    "name": "David Clavon",
+    "phoneNumber": "0995556667",
+    "email": "david.clavon@espe.edu.ec",
+    "username": "david",
+    "password": "1234"
+  }
+]

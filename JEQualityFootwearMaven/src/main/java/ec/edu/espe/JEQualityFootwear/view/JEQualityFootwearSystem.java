@@ -26,9 +26,9 @@ public class JEQualityFootwearSystem {
 
     public static void main(String[] args) {
         if (JsonDataManager.loadData(inventory, salesManagement, promotionCalendar)) {
-            System.out.println("[SISTEMA] Datos cargados desde 'jequality_data.json' correctamente.");
+            System.out.println("[SISTEMA] Datos cargados desde los archivos JSON modulares correctamente.");
         } else {
-            System.out.println("[ERROR] No se encontro 'jequality_data.json' en la carpeta del proyecto.");
+            System.out.println("[ERROR] No se encontraron los archivos JSON en la carpeta del proyecto.");
         }
 
         boolean exitProgram = false;
@@ -56,7 +56,7 @@ public class JEQualityFootwearSystem {
                     break;
                 case 0:
                     saveCurrentState();
-                    System.out.println("Datos guardados en 'jequality_data.json'. Cerrando el sistema. Hasta pronto!");
+                    System.out.println("Datos guardados en sus respectivos archivos JSON. Cerrando el sistema. Hasta pronto!");
                     exitProgram = true;
                     break;
                 default:

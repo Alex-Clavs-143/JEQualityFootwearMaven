@@ -1,0 +1,12 @@
+[
+  {
+    "employeeCode": 100,
+    "salary": 850.0,
+    "id": "1710000001",
+    "name": "Angel Bonilla (Admin)",
+    "phoneNumber": "0991112223",
+    "email": "angel.bonilla@espe.edu.ec",
+    "username": "admin",
+    "password": "1234"
+  }
+]

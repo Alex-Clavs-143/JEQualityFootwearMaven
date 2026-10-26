@@ -12,125 +12,146 @@ import java.util.List;
 
 public class JsonDataManager {
 
-    private static final String FILE_PATH = "jequality_data.json";
+    private static final String INVENTORY_FILE = "inventory.json";
+    private static final String SALES_FILE = "sales_management.json";
+    private static final String PROMOS_FILE = "promotions.json";
+
     private static final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .setDateFormat("dd/MM/yyyy HH:mm:ss")
             .create();
 
-    private static class SystemDatabase {
+    private static class SalesDatabase {
         int systemId;
         float commission;
-        float sellerSalary;
         float cashRegisterBalance;
-        int invoiceSequence;
-        Date lastAuditDate;
         List<Admin> admins = new ArrayList<>();
         List<Seller> sellers = new ArrayList<>();
         List<Customer> customers = new ArrayList<>();
-        List<Product> products = new ArrayList<>();
         List<Invoice> salesRegistry = new ArrayList<>();
-        PromotionCalendar promotionCalendar;
     }
 
     public static void saveData(Inventory inventory, SalesManagement salesManagement, PromotionCalendar promotionCalendar) {
-        SystemDatabase db = new SystemDatabase();
-        db.systemId = salesManagement.getSystemId();
-        db.commission = salesManagement.getCommission();
-        db.sellerSalary = 460.0f;
-        db.cashRegisterBalance = salesManagement.getCashRegisterBalance();
-        db.invoiceSequence = salesManagement.getSalesRegistry().size() + 1;
-        db.lastAuditDate = inventory.getLastAuditDate();
+        try (FileWriter writer = new FileWriter(INVENTORY_FILE)) {
+            gson.toJson(inventory, writer);
+        } catch (IOException e) {
+            System.out.println("[ERROR JSON] No se pudo guardar en " + INVENTORY_FILE + ": " + e.getMessage());
+        }
+
+        try (FileWriter writer = new FileWriter(PROMOS_FILE)) {
+            gson.toJson(promotionCalendar, writer);
+        } catch (IOException e) {
+            System.out.println("[ERROR JSON] No se pudo guardar en " + PROMOS_FILE + ": " + e.getMessage());
+        }
+
+        SalesDatabase salesDb = new SalesDatabase();
+        salesDb.systemId = salesManagement.getSystemId();
+        salesDb.commission = salesManagement.getCommission();
+        salesDb.cashRegisterBalance = salesManagement.getCashRegisterBalance();
 
         for (StaffMember staff : salesManagement.getStaffList()) {
             if (staff instanceof Admin) {
-                db.admins.add((Admin) staff);
+                salesDb.admins.add((Admin) staff);
             } else if (staff instanceof Seller) {
-                db.sellers.add((Seller) staff);
+                salesDb.sellers.add((Seller) staff);
             }
         }
 
-        db.customers = salesManagement.getCustomerDirectory();
-        db.products = inventory.getProducts();
-        db.salesRegistry = salesManagement.getSalesRegistry();
-        db.promotionCalendar = promotionCalendar;
+        salesDb.customers = salesManagement.getCustomerDirectory();
+        salesDb.salesRegistry = salesManagement.getSalesRegistry();
 
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(db, writer);
+        try (FileWriter writer = new FileWriter(SALES_FILE)) {
+            gson.toJson(salesDb, writer);
         } catch (IOException e) {
-            System.out.println("[ERROR JSON] No se pudo guardar en " + FILE_PATH + ": " + e.getMessage());
+            System.out.println("[ERROR JSON] No se pudo guardar en " + SALES_FILE + ": " + e.getMessage());
         }
     }
 
     public static boolean loadData(Inventory inventory, SalesManagement salesManagement, PromotionCalendar promotionCalendar) {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return false;
+        boolean loadedAny = false;
+
+        File invFile = new File(INVENTORY_FILE);
+        if (invFile.exists()) {
+            try (FileReader reader = new FileReader(invFile)) {
+                Inventory loadedInv = gson.fromJson(reader, Inventory.class);
+                if (loadedInv != null) {
+                    inventory.setProducts(loadedInv.getProducts() != null ? loadedInv.getProducts() : new ArrayList<>());
+                    if (loadedInv.getLastAuditDate() != null) {
+                        inventory.setLastAuditDate(loadedInv.getLastAuditDate());
+                    }
+                    loadedAny = true;
+                }
+            } catch (IOException e) {
+                System.out.println("[ERROR JSON] Fallo al leer el archivo " + INVENTORY_FILE + ": " + e.getMessage());
+            }
         }
 
-        try (FileReader reader = new FileReader(file)) {
-            SystemDatabase db = gson.fromJson(reader, SystemDatabase.class);
-            if (db == null) {
-                return false;
-            }
-
-            inventory.setProducts(db.products != null ? db.products : new ArrayList<>());
-            if (db.lastAuditDate != null) {
-                inventory.setLastAuditDate(db.lastAuditDate);
-            }
-
-            salesManagement.setSystemId(db.systemId);
-            salesManagement.setCommission(db.commission);
-            salesManagement.setCashRegisterBalance(db.cashRegisterBalance);
-
-            salesManagement.getStaffList().clear();
-            if (db.admins != null) {
-                salesManagement.getStaffList().addAll(db.admins);
-            }
-            if (db.sellers != null) {
-                salesManagement.getStaffList().addAll(db.sellers);
-            }
-
-            salesManagement.getCustomerDirectory().clear();
-            if (db.customers != null) {
-                for (Customer c : db.customers) {
-                    if (c.getPurchaseHistory() == null) {
-                        c.setPurchaseHistory(new ArrayList<>());
-                    }
-                    salesManagement.getCustomerDirectory().add(c);
+        File promoFile = new File(PROMOS_FILE);
+        if (promoFile.exists()) {
+            try (FileReader reader = new FileReader(promoFile)) {
+                PromotionCalendar loadedPromo = gson.fromJson(reader, PromotionCalendar.class);
+                if (loadedPromo != null) {
+                    promotionCalendar.setBranchName(loadedPromo.getBranchName());
+                    promotionCalendar.setBranchAddress(loadedPromo.getBranchAddress());
+                    promotionCalendar.setContactPhone(loadedPromo.getContactPhone());
+                    promotionCalendar.setOpeningHour(loadedPromo.getOpeningHour());
+                    promotionCalendar.setClosingHour(loadedPromo.getClosingHour());
+                    promotionCalendar.setScheduledPromotions(
+                            loadedPromo.getScheduledPromotions() != null ? loadedPromo.getScheduledPromotions() : new ArrayList<>()
+                    );
+                    loadedAny = true;
                 }
+            } catch (IOException e) {
+                System.out.println("[ERROR JSON] Fallo al leer el archivo " + PROMOS_FILE + ": " + e.getMessage());
             }
+        }
 
-            salesManagement.getSalesRegistry().clear();
-            if (db.salesRegistry != null) {
-                for (Invoice inv : db.salesRegistry) {
-                    salesManagement.getSalesRegistry().add(inv);
-                    if (inv.getCustomer() != null) {
-                        Customer registeredCustomer = salesManagement.findCustomerById(inv.getCustomer().getId());
-                        if (registeredCustomer != null) {
-                            registeredCustomer.getInvoice(inv);
+        File salesFile = new File(SALES_FILE);
+        if (salesFile.exists()) {
+            try (FileReader reader = new FileReader(salesFile)) {
+                SalesDatabase db = gson.fromJson(reader, SalesDatabase.class);
+                if (db != null) {
+                    salesManagement.setSystemId(db.systemId);
+                    salesManagement.setCommission(db.commission);
+                    salesManagement.setCashRegisterBalance(db.cashRegisterBalance);
+
+                    salesManagement.getStaffList().clear();
+                    if (db.admins != null) {
+                        salesManagement.getStaffList().addAll(db.admins);
+                    }
+                    if (db.sellers != null) {
+                        salesManagement.getStaffList().addAll(db.sellers);
+                    }
+
+                    salesManagement.getCustomerDirectory().clear();
+                    if (db.customers != null) {
+                        for (Customer c : db.customers) {
+                            if (c.getPurchaseHistory() == null) {
+                                c.setPurchaseHistory(new ArrayList<>());
+                            }
+                            salesManagement.getCustomerDirectory().add(c);
                         }
                     }
+
+                    salesManagement.getSalesRegistry().clear();
+                    if (db.salesRegistry != null) {
+                        for (Invoice inv : db.salesRegistry) {
+                            salesManagement.getSalesRegistry().add(inv);
+                            if (inv.getCustomer() != null) {
+                                Customer registeredCustomer = salesManagement.findCustomerById(inv.getCustomer().getId());
+                                if (registeredCustomer != null) {
+                                    registeredCustomer.getInvoice(inv);
+                                }
+                            }
+                        }
+                    }
+                    loadedAny = true;
                 }
+            } catch (IOException e) {
+                System.out.println("[ERROR JSON] Fallo al leer el archivo " + SALES_FILE + ": " + e.getMessage());
             }
-
-            if (db.promotionCalendar != null) {
-                promotionCalendar.setBranchName(db.promotionCalendar.getBranchName());
-                promotionCalendar.setBranchAddress(db.promotionCalendar.getBranchAddress());
-                promotionCalendar.setContactPhone(db.promotionCalendar.getContactPhone());
-                promotionCalendar.setOpeningHour(db.promotionCalendar.getOpeningHour());
-                promotionCalendar.setClosingHour(db.promotionCalendar.getClosingHour());
-                promotionCalendar.setScheduledPromotions(
-                        db.promotionCalendar.getScheduledPromotions() != null
-                        ? db.promotionCalendar.getScheduledPromotions()
-                        : new ArrayList<>()
-                );
-            }
-
-            return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR JSON] Fallo al leer el archivo " + FILE_PATH + ": " + e.getMessage());
-            return false;
         }
+
+        return loadedAny;
     }
 }
