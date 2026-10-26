@@ -1,0 +1,56 @@
+{
+  "systemId": 101,
+  "commission": 0.05,
+  "cashRegisterBalance": 274.75,
+  "salesRegistry": [
+    {
+      "invoiceNumber": "001-001-000001",
+      "date": "25/10/2026 19:31:34",
+      "customer": {
+        "customerCode": 1002,
+        "id": "1717171717",
+        "name": "Pauline Caoronel",
+        "phoneNumber": "0998765432",
+        "email": "sd",
+        "username": "cli1002",
+        "password": "1234"
+      },
+      "seller": {
+        "accumulatedCommission": 3.25,
+        "completedSalesCount": 1,
+        "employeeCode": 201,
+        "salary": 460.0,
+        "id": "1720000002",
+        "name": "Henry Chalcualan",
+        "phoneNumber": "0993334445",
+        "email": "henry.chalcualan@espe.edu.ec",
+        "username": "henry",
+        "password": "1234"
+      },
+      "purchasedItems": [
+        {
+          "productId": "ZAP-001",
+          "name": "Oxford Clasico Cuero",
+          "price": 65.0,
+          "currentStock": 11,
+          "category": {
+            "name": "Calzado Formal",
+            "gender": "Hombres"
+          },
+          "color": "Negro",
+          "size": 41,
+          "unitsSold": 1
+        }
+      ],
+      "quantities": [
+        1
+      ],
+      "subtotal": 65.0,
+      "vatAmount": 9.75,
+      "totalAmount": 74.75,
+      "cashTendered": 100.0,
+      "changeDue": 25.25,
+      "issuanceChannel": "FISICA IMPRESA + ELECTRONICA (PDF VIA EMAIL)"
+    }
+  ]
+}
