@@ -1,1 +1,9 @@
+ec\edu\espe\JEQualityFootwear\model\SalesManagementTest.class
+ec\edu\espe\JEQualityFootwear\model\CustomerTest.class
 ec\edu\espe\JEQualityFootwear\model\AdminTest.class
+ec\edu\espe\JEQualityFootwear\model\CategoryTest.class
+ec\edu\espe\JEQualityFootwear\model\StaffMemberTest.class
+ec\edu\espe\JEQualityFootwear\model\InvoiceTest.class
+ec\edu\espe\JEQualityFootwear\model\PromotionCalendarTest.class
+ec\edu\espe\JEQualityFootwear\model\InventoryTest.class
+ec\edu\espe\JEQualityFootwear\model\SellerTest.class

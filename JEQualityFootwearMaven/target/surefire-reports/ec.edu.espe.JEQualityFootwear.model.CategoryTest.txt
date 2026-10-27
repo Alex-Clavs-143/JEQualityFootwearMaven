@@ -1,48 +1,37 @@
 -------------------------------------------------------------------------------
 Test set: ec.edu.espe.JEQualityFootwear.model.CategoryTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.175 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.CategoryTest
-ec.edu.espe.JEQualityFootwear.model.CategoryTest.testCreateCategoryWithNullGenderThrowsException -- Time elapsed: 0.064 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: No se debe crear una categoria con una seccion nula ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+Tests run: 10, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.141 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.CategoryTest
+ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetInvalidGenderThrowsException -- Time elapsed: 0.037 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: El sistema debe aceptar solamente secciones validas del catalogo ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testCreateCategoryWithNullGenderThrowsException(CategoryTest.java:99)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
+	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetInvalidGenderThrowsException(CategoryTest.java:93)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetInvalidGenderThrowsException -- Time elapsed: 0.004 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: La seccion debe pertenecer a una categoria valida del sistema ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetEmptyNameThrowsException -- Time elapsed: 0.034 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: El sistema debe rechazar nombres de categorias vacios o con espacios ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetInvalidGenderThrowsException(CategoryTest.java:92)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
+	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetEmptyNameThrowsException(CategoryTest.java:86)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetEmptyNameThrowsException -- Time elapsed: 0.006 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: No se debe permitir un nombre compuesto solo por espacios ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+ec.edu.espe.JEQualityFootwear.model.CategoryTest.testCreateCategoryWithNullNameThrowsException -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: No se debe permitir crear una categoria con nombre null ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testSetEmptyNameThrowsException(CategoryTest.java:78)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-
-ec.edu.espe.JEQualityFootwear.model.CategoryTest.testCreateCategoryWithEmptyNameThrowsException -- Time elapsed: 0.004 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: No se debe crear una categoria con el nombre vacio ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
-	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
-	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
-	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testCreateCategoryWithEmptyNameThrowsException(CategoryTest.java:85)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
+	at ec.edu.espe.JEQualityFootwear.model.CategoryTest.testCreateCategoryWithNullNameThrowsException(CategoryTest.java:100)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
