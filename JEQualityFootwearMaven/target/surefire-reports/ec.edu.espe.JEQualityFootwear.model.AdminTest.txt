@@ -1,91 +1,80 @@
 -------------------------------------------------------------------------------
 Test set: ec.edu.espe.JEQualityFootwear.model.AdminTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 8, Errors: 0, Skipped: 0, Time elapsed: 0.237 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.AdminTest
+Tests run: 10, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.193 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.AdminTest
 ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetNegativeSalaryThrowsException -- Time elapsed: 0.085 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: El sistema deberia rechazar sueldos negativos lanzando una excepcion ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+org.opentest4j.AssertionFailedError: El sistema debe rechazar sueldos negativos ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetNegativeSalaryThrowsException(AdminTest.java:21)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetNegativeSalaryThrowsException(AdminTest.java:55)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.AdminTest.testCreateAdminWithNullNameThrowsException -- Time elapsed: 0.007 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: No se debe poder crear un administrador sin nombre (null) ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+ec.edu.espe.JEQualityFootwear.model.AdminTest.testCreateAdminWithNullNameThrowsException -- Time elapsed: 0.004 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: No se debe permitir crear administradores sin nombre ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testCreateAdminWithNullNameThrowsException(AdminTest.java:35)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testCreateAdminWithNullNameThrowsException(AdminTest.java:69)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.AdminTest.testManageNullUserThrowsException -- Time elapsed: 0.004 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: Administrar un usuario nulo debe arrojar NullPointerException explícitamente ==> Expected java.lang.NullPointerException to be thrown, but nothing was thrown.
+ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmailThrowsException -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: El correo electronico debe tener un formato valido ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testManageNullUserThrowsException(AdminTest.java:56)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-
-ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmailThrowsException -- Time elapsed: 0.005 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: El email debe contener un @ para ser valido ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
-	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
-	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
-	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmailThrowsException(AdminTest.java:76)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmailThrowsException(AdminTest.java:98)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
 ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyIdThrowsException -- Time elapsed: 0.003 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: El ID/Cedula no puede ser un texto vacio ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+org.opentest4j.AssertionFailedError: La cedula o RUC no puede estar vacia ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyIdThrowsException(AdminTest.java:42)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyIdThrowsException(AdminTest.java:77)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
 ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidPhoneNumberThrowsException -- Time elapsed: 0.003 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: El teléfono heredado de Person no debe aceptar letras ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+org.opentest4j.AssertionFailedError: El telefono no debe aceptar caracteres alfabeticos ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidPhoneNumberThrowsException(AdminTest.java:69)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidPhoneNumberThrowsException(AdminTest.java:91)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyPasswordThrowsException -- Time elapsed: 0.004 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: La contrasena no puede estar compuesta solo de espacios en blanco ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyPasswordThrowsException -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: La contrasena no puede contener solamente espacios ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyPasswordThrowsException(AdminTest.java:49)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyPasswordThrowsException(AdminTest.java:84)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmployeeCodeThrowsException -- Time elapsed: 0.006 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: El sistema no debe permitir codigos de empleado negativos ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmployeeCodeThrowsException -- Time elapsed: 0.004 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: El codigo de empleado no puede ser negativo ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmployeeCodeThrowsException(AdminTest.java:28)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmployeeCodeThrowsException(AdminTest.java:62)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.237" tests="10" errors="0" skipped="0" failures="8">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.193" tests="10" errors="0" skipped="0" failures="7">
   <properties>
     <property name="java.specification.version" value="27"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\test-classes;C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\classes;C:\Users\david\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\david\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;C:\Users\david\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;"/>
+    <property name="java.class.path" value="C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\test-classes;C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\classes;C:\Users\david\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\david\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\david\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,10 +15,10 @@
     <property name="user.country" value="EC"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-27\bin"/>
-    <property name="sun.java.command" value="C:\Users\david\AppData\Local\Temp\surefire11806093131632072852\surefirebooter-20261025221329372_3.jar C:\Users\david\AppData\Local\Temp\surefire11806093131632072852 2026-10-25T22-13-28_939-jvmRun1 surefire-20261025221329372_1tmp surefire_0-20261025221329372_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\david\AppData\Local\Temp\surefire5257604905478319604\surefirebooter-20261026191822946_3.jar C:\Users\david\AppData\Local\Temp\surefire5257604905478319604 2026-10-26T19-18-21_708-jvmRun1 surefire-20261026191822946_1tmp surefire_0-20261026191822946_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="ec.edu.espe.JEQualityFootwear.model.AdminTest"/>
-    <property name="surefire.test.class.path" value="C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\test-classes;C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\classes;C:\Users\david\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\david\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;C:\Users\david\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\test-classes;C:\Users\david\POO\JEQualityFootwearMaven\JEQualityFootwearMaven\target\classes;C:\Users\david\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\david\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\david\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\david\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\david\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\david"/>
     <property name="user.language" value="es"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\david\AppData\Local\Temp\surefire11806093131632072852\surefirebooter-20261025221329372_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\david\AppData\Local\Temp\surefire5257604905478319604\surefirebooter-20261026191822946_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="27+35-2325"/>
@@ -62,98 +62,90 @@
     <property name="java.class.version" value="71.0"/>
   </properties>
   <testcase name="testSetNegativeSalaryThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.085">
-    <failure message="El sistema deberia rechazar sueldos negativos lanzando una excepcion ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El sistema deberia rechazar sueldos negativos lanzando una excepcion ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+    <failure message="El sistema debe rechazar sueldos negativos ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El sistema debe rechazar sueldos negativos ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetNegativeSalaryThrowsException(AdminTest.java:21)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetNegativeSalaryThrowsException(AdminTest.java:55)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 ]]></failure>
   </testcase>
-  <testcase name="testCreateAdminWithNullNameThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.007">
-    <failure message="No se debe poder crear un administrador sin nombre (null) ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: No se debe poder crear un administrador sin nombre (null) ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+  <testcase name="testCreateAdminWithNullNameThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.004">
+    <failure message="No se debe permitir crear administradores sin nombre ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: No se debe permitir crear administradores sin nombre ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testCreateAdminWithNullNameThrowsException(AdminTest.java:35)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testCreateAdminWithNullNameThrowsException(AdminTest.java:69)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 ]]></failure>
   </testcase>
-  <testcase name="testManageNullUserThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.004">
-    <failure message="Administrar un usuario nulo debe arrojar NullPointerException explícitamente ==&gt; Expected java.lang.NullPointerException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: Administrar un usuario nulo debe arrojar NullPointerException explícitamente ==> Expected java.lang.NullPointerException to be thrown, but nothing was thrown.
+  <testcase name="testCalculateSalary" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003"/>
+  <testcase name="testToString" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.009"/>
+  <testcase name="testSetInvalidEmailThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003">
+    <failure message="El correo electronico debe tener un formato valido ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El correo electronico debe tener un formato valido ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testManageNullUserThrowsException(AdminTest.java:56)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
-]]></failure>
-  </testcase>
-  <testcase name="testSetExtremelyHighSalary" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003"/>
-  <testcase name="testCalculateSalaryZeroBoundary" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.004"/>
-  <testcase name="testSetInvalidEmailThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.005">
-    <failure message="El email debe contener un @ para ser valido ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El email debe contener un @ para ser valido ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
-	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
-	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
-	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmailThrowsException(AdminTest.java:76)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmailThrowsException(AdminTest.java:98)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 ]]></failure>
   </testcase>
   <testcase name="testSetEmptyIdThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003">
-    <failure message="El ID/Cedula no puede ser un texto vacio ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El ID/Cedula no puede ser un texto vacio ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+    <failure message="La cedula o RUC no puede estar vacia ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: La cedula o RUC no puede estar vacia ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyIdThrowsException(AdminTest.java:42)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyIdThrowsException(AdminTest.java:77)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 ]]></failure>
   </testcase>
   <testcase name="testSetInvalidPhoneNumberThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003">
-    <failure message="El teléfono heredado de Person no debe aceptar letras ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El teléfono heredado de Person no debe aceptar letras ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+    <failure message="El telefono no debe aceptar caracteres alfabeticos ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El telefono no debe aceptar caracteres alfabeticos ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidPhoneNumberThrowsException(AdminTest.java:69)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidPhoneNumberThrowsException(AdminTest.java:91)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 ]]></failure>
   </testcase>
-  <testcase name="testSetEmptyPasswordThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.004">
-    <failure message="La contrasena no puede estar compuesta solo de espacios en blanco ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: La contrasena no puede estar compuesta solo de espacios en blanco ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+  <testcase name="testSetEmptyPasswordThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003">
+    <failure message="La contrasena no puede contener solamente espacios ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: La contrasena no puede contener solamente espacios ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyPasswordThrowsException(AdminTest.java:49)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetEmptyPasswordThrowsException(AdminTest.java:84)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 ]]></failure>
   </testcase>
-  <testcase name="testSetInvalidEmployeeCodeThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.006">
-    <failure message="El sistema no debe permitir codigos de empleado negativos ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El sistema no debe permitir codigos de empleado negativos ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+  <testcase name="testManageUser" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.003">
+    <system-out><![CDATA[[ADMIN] Gestionando perfil de usuario: ID/RUC: 1723456789 | Nombre: Juan Perez | Tel: 0987654321 | Email: juan@gmail.com
+]]></system-out>
+  </testcase>
+  <testcase name="testSetInvalidEmployeeCodeThrowsException" classname="ec.edu.espe.JEQualityFootwear.model.AdminTest" time="0.004">
+    <failure message="El codigo de empleado no puede ser negativo ==&gt; Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El codigo de empleado no puede ser negativo ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
-	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmployeeCodeThrowsException(AdminTest.java:28)
+	at ec.edu.espe.JEQualityFootwear.model.AdminTest.testSetInvalidEmployeeCodeThrowsException(AdminTest.java:62)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
