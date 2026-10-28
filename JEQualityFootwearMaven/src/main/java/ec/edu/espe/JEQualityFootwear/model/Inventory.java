@@ -29,6 +29,9 @@ public class Inventory {
     }
 
     public Product findProduct(String productId) {
+        if (productId == null) {
+            return null;
+        }
         for (Product product : products) {
             if (product.getProductId().equalsIgnoreCase(productId)) {
                 return product;
@@ -46,6 +49,9 @@ public class Inventory {
 
     public List<Product> filterBySection(String genderSection) {
         List<Product> filtered = new ArrayList<>();
+        if (genderSection == null) {
+            return filtered;
+        }
         for (Product product : products) {
             if (product.getCategory() != null &&
                 product.getCategory().getGender().equalsIgnoreCase(genderSection)) {
@@ -76,6 +82,9 @@ public class Inventory {
     }
 
     public void setProducts(List<Product> products) {
+        if (products == null) {
+            throw new IllegalArgumentException("El inventario no debe aceptar una lista de productos null");
+        }
         this.products = products;
     }
 
@@ -84,6 +93,9 @@ public class Inventory {
     }
 
     public void setLastAuditDate(Date lastAuditDate) {
+        if (lastAuditDate == null) {
+            throw new IllegalArgumentException("La fecha de auditoria no debe aceptar valores null");
+        }
         this.lastAuditDate = lastAuditDate;
     }
 

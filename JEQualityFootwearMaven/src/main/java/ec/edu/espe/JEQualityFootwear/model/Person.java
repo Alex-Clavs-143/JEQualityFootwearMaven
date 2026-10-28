@@ -9,12 +9,12 @@ public class Person {
     private String password;
 
     public Person(String id, String name, String phoneNumber, String email, String username, String password) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.username = username;
-        this.password = password;
+        setId(id);
+        setName(name);
+        setPhoneNumber(phoneNumber);
+        setEmail(email);
+        setUsername(username);
+        setPassword(password);
     }
 
     public String getInfo() {
@@ -26,7 +26,10 @@ public class Person {
     }
 
     public void setId(String id) {
-        this.id = id;
+        if (id == null || id.trim().isEmpty() || !id.trim().matches("\\d{10}|\\d{13}")) {
+            throw new IllegalArgumentException("La cedula debe tener 10 digitos o el RUC 13 digitos validos");
+        }
+        this.id = id.trim();
     }
 
     public String getName() {
@@ -34,7 +37,10 @@ public class Person {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo ni contener solamente espacios en blanco");
+        }
+        this.name = name.trim();
     }
 
     public String getPhoneNumber() {
@@ -42,7 +48,10 @@ public class Person {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if (phoneNumber == null || !phoneNumber.trim().matches("\\d+")) {
+            throw new IllegalArgumentException("El telefono solo debe aceptar digitos numericos");
+        }
+        this.phoneNumber = phoneNumber.trim();
     }
 
     public String getEmail() {
@@ -50,7 +59,10 @@ public class Person {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email == null || email.trim().isEmpty() || !email.contains("@") || !email.contains(".")) {
+            throw new IllegalArgumentException("El correo electronico debe contener un formato valido");
+        }
+        this.email = email.trim();
     }
 
     public String getUsername() {
@@ -58,7 +70,10 @@ public class Person {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de usuario no puede estar vacio");
+        }
+        this.username = username.trim();
     }
 
     public String getPassword() {
@@ -66,7 +81,10 @@ public class Person {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("La contrasena no puede contener solamente espacios");
+        }
+        this.password = password.trim();
     }
 
     @Override

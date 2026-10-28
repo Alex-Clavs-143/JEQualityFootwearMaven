@@ -17,8 +17,8 @@ public class PromotionCalendar {
         this.branchName = branchName;
         this.branchAddress = branchAddress;
         this.contactPhone = contactPhone;
-        this.openingHour = openingHour;
-        this.closingHour = closingHour;
+        setOpeningHour(openingHour);
+        setClosingHour(closingHour);
         this.scheduledPromotions = new ArrayList<>();
     }
 
@@ -60,7 +60,10 @@ public class PromotionCalendar {
     }
 
     public void setBranchName(String branchName) {
-        this.branchName = branchName;
+        if (branchName == null || branchName.trim().isEmpty()) {
+            throw new IllegalArgumentException("No se debe permitir un nombre de sucursal vacio");
+        }
+        this.branchName = branchName.trim();
     }
 
     public String getBranchAddress() {
@@ -76,7 +79,10 @@ public class PromotionCalendar {
     }
 
     public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
+        if (contactPhone == null || !contactPhone.trim().matches("\\d+")) {
+            throw new IllegalArgumentException("No se debe permitir un telefono con caracteres no numericos");
+        }
+        this.contactPhone = contactPhone.trim();
     }
 
     public int getOpeningHour() {
@@ -84,6 +90,9 @@ public class PromotionCalendar {
     }
 
     public void setOpeningHour(int openingHour) {
+        if (openingHour < 0 || openingHour > 24) {
+            throw new IllegalArgumentException("No se debe permitir una hora de apertura fuera del rango 0-24");
+        }
         this.openingHour = openingHour;
     }
 
@@ -92,6 +101,9 @@ public class PromotionCalendar {
     }
 
     public void setClosingHour(int closingHour) {
+        if (closingHour < 0 || closingHour > 24) {
+            throw new IllegalArgumentException("No se debe permitir una hora de cierre mayor a 24 o negativa");
+        }
         this.closingHour = closingHour;
     }
 

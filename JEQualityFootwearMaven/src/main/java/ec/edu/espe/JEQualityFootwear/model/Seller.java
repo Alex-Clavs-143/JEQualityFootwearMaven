@@ -15,9 +15,10 @@ public class Seller extends StaffMember {
     }
 
     public void addCommission(float commissionAmount) {
-        if (commissionAmount > 0) {
-            this.accumulatedCommission += commissionAmount;
+        if (commissionAmount < 0) {
+            throw new IllegalArgumentException("No se debe permitir agregar comisiones negativas");
         }
+        this.accumulatedCommission += commissionAmount;
     }
 
     @Override
@@ -30,6 +31,9 @@ public class Seller extends StaffMember {
     }
 
     public void setAccumulatedCommission(float accumulatedCommission) {
+        if (accumulatedCommission < 0) {
+            throw new IllegalArgumentException("La comision acumulada no puede ser negativa");
+        }
         this.accumulatedCommission = accumulatedCommission;
     }
 
@@ -38,6 +42,9 @@ public class Seller extends StaffMember {
     }
 
     public void setCompletedSalesCount(int completedSalesCount) {
+        if (completedSalesCount < 0) {
+            throw new IllegalArgumentException("El contador de ventas realizadas no puede ser negativo");
+        }
         this.completedSalesCount = completedSalesCount;
     }
 

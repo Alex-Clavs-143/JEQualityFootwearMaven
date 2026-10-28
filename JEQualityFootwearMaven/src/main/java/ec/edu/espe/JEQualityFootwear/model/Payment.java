@@ -26,6 +26,7 @@ public class Payment {
             calculateChange(this.amountReceived);
             return true;
         }
+        this.changeGiven = 0.0f;
         return false;
     }
 
@@ -34,6 +35,9 @@ public class Payment {
     }
 
     public void setAmountReceived(float amountReceived) {
+        if (amountReceived < 0) {
+            throw new IllegalArgumentException("El sistema debe rechazar montos de efectivo negativos");
+        }
         this.amountReceived = amountReceived;
     }
 
@@ -42,6 +46,9 @@ public class Payment {
     }
 
     public void setChangeGiven(float changeGiven) {
+        if (changeGiven < 0) {
+            throw new IllegalArgumentException("El vuelto entregado no debe ser negativo");
+        }
         this.changeGiven = changeGiven;
     }
 
@@ -50,6 +57,9 @@ public class Payment {
     }
 
     public void setTotalAmount(float totalAmount) {
+        if (totalAmount < 0) {
+            throw new IllegalArgumentException("El total a pagar no debe aceptar valores negativos");
+        }
         this.totalAmount = totalAmount;
     }
 

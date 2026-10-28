@@ -11,13 +11,13 @@ public class Product {
     private int unitsSold;
 
     public Product(String productId, String name, float price, int currentStock, Category category, String color, int size) {
-        this.productId = productId;
-        this.name = name;
-        this.price = price;
-        this.currentStock = currentStock;
-        this.category = category;
-        this.color = color;
-        this.size = size;
+        setProductId(productId);
+        setName(name);
+        setPrice(price);
+        setCurrentStock(currentStock);
+        assignCategory(category);
+        setColor(color);
+        setSize(size);
         this.unitsSold = 0;
     }
 
@@ -33,6 +33,9 @@ public class Product {
     }
 
     public void assignCategory(Category category) {
+        if (category == null) {
+            throw new IllegalArgumentException("El producto no debe permitir una categoria nula");
+        }
         this.category = category;
     }
 
@@ -41,9 +44,10 @@ public class Product {
     }
 
     public void setPrice(float price) {
-        if (price >= 0) {
-            this.price = price;
+        if (price < 0) {
+            throw new IllegalArgumentException("El sistema debe rechazar precios negativos");
         }
+        this.price = price;
     }
 
     public String getProductId() {
@@ -51,7 +55,10 @@ public class Product {
     }
 
     public void setProductId(String productId) {
-        this.productId = productId;
+        if (productId == null || productId.trim().isEmpty()) {
+            throw new IllegalArgumentException("El codigo del producto no puede estar vacio");
+        }
+        this.productId = productId.trim();
     }
 
     public String getName() {
@@ -59,7 +66,10 @@ public class Product {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del producto no puede contener solo espacios");
+        }
+        this.name = name.trim();
     }
 
     public int getCurrentStock() {
@@ -67,9 +77,10 @@ public class Product {
     }
 
     public void setCurrentStock(int currentStock) {
-        if (currentStock >= 0) {
-            this.currentStock = currentStock;
+        if (currentStock < 0) {
+            throw new IllegalArgumentException("El stock no puede ser negativo");
         }
+        this.currentStock = currentStock;
     }
 
     public Category getCategory() {
@@ -81,7 +92,10 @@ public class Product {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        if (color == null || color.trim().isEmpty()) {
+            throw new IllegalArgumentException("El color no puede contener solamente espacios");
+        }
+        this.color = color.trim();
     }
 
     public int getSize() {
@@ -89,6 +103,9 @@ public class Product {
     }
 
     public void setSize(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("El sistema no debe permitir tallas negativas");
+        }
         this.size = size;
     }
 
@@ -97,6 +114,9 @@ public class Product {
     }
 
     public void setUnitsSold(int unitsSold) {
+        if (unitsSold < 0) {
+            throw new IllegalArgumentException("Las unidades vendidas no pueden ser negativas");
+        }
         this.unitsSold = unitsSold;
     }
 

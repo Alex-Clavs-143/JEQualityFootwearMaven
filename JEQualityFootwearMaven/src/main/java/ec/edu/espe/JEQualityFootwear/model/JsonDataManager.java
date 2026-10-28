@@ -14,8 +14,9 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
+    
 public class JsonDataManager {
 
     private static final String ADMINS_FILE = "admins.json";
@@ -40,7 +41,7 @@ public class JsonDataManager {
     public static void saveData(Inventory inventory, SalesManagement salesManagement, PromotionCalendar promotionCalendar) {
         List<Admin> admins = new ArrayList<>();
         List<Seller> sellers = new ArrayList<>();
-
+        
         for (StaffMember staff : salesManagement.getStaffList()) {
             if (staff instanceof Admin) {
                 admins.add((Admin) staff);
@@ -133,6 +134,8 @@ public class JsonDataManager {
                     inventory.setProducts(loadedInv.getProducts() != null ? loadedInv.getProducts() : new ArrayList<>());
                     if (loadedInv.getLastAuditDate() != null) {
                         inventory.setLastAuditDate(loadedInv.getLastAuditDate());
+                    } else {
+                        inventory.setLastAuditDate(new Date());
                     }
                     loadedAny = true;
                 }
@@ -147,13 +150,17 @@ public class JsonDataManager {
                 InvoicesData db = gson.fromJson(reader, InvoicesData.class);
                 if (db != null) {
                     salesManagement.setSystemId(db.systemId);
-                    salesManagement.setCommission(db.commission);
-                    salesManagement.setCashRegisterBalance(db.cashRegisterBalance);
+                    if (db.commission >= 0) {
+                        salesManagement.setCommission(db.commission);
+                    }
+                    if (db.cashRegisterBalance >= 0) {
+                        salesManagement.setCashRegisterBalance(db.cashRegisterBalance);
+                    }
                     salesManagement.getSalesRegistry().clear();
                     if (db.salesRegistry != null) {
                         for (Invoice inv : db.salesRegistry) {
                             salesManagement.getSalesRegistry().add(inv);
-                            if (inv.getCustomer() != null) {
+                            if (inv.getCustomer() != null && inv.getCustomer().getId() != null) {
                                 Customer registeredCustomer = salesManagement.findCustomerById(inv.getCustomer().getId());
                                 if (registeredCustomer != null) {
                                     registeredCustomer.getInvoice(inv);
@@ -173,11 +180,19 @@ public class JsonDataManager {
             try (FileReader reader = new FileReader(promoFile)) {
                 PromotionCalendar loadedPromo = gson.fromJson(reader, PromotionCalendar.class);
                 if (loadedPromo != null) {
-                    promotionCalendar.setBranchName(loadedPromo.getBranchName());
+                    if (loadedPromo.getBranchName() != null && !loadedPromo.getBranchName().trim().isEmpty()) {
+                        promotionCalendar.setBranchName(loadedPromo.getBranchName());
+                    }
                     promotionCalendar.setBranchAddress(loadedPromo.getBranchAddress());
-                    promotionCalendar.setContactPhone(loadedPromo.getContactPhone());
-                    promotionCalendar.setOpeningHour(loadedPromo.getOpeningHour());
-                    promotionCalendar.setClosingHour(loadedPromo.getClosingHour());
+                    if (loadedPromo.getContactPhone() != null && loadedPromo.getContactPhone().trim().matches("\\d+")) {
+                        promotionCalendar.setContactPhone(loadedPromo.getContactPhone());
+                    }
+                    if (loadedPromo.getOpeningHour() >= 0 && loadedPromo.getOpeningHour() <= 24) {
+                        promotionCalendar.setOpeningHour(loadedPromo.getOpeningHour());
+                    }
+                    if (loadedPromo.getClosingHour() >= 0 && loadedPromo.getClosingHour() <= 24) {
+                        promotionCalendar.setClosingHour(loadedPromo.getClosingHour());
+                    }
                     promotionCalendar.setScheduledPromotions(
                             loadedPromo.getScheduledPromotions() != null ? loadedPromo.getScheduledPromotions() : new ArrayList<>()
                     );
@@ -190,7 +205,6 @@ public class JsonDataManager {
 
         return loadedAny;
     }
-
 
     private static PrintWriter createCsvWriter(String fileName) throws IOException {
         FileOutputStream fos = new FileOutputStream(fileName);

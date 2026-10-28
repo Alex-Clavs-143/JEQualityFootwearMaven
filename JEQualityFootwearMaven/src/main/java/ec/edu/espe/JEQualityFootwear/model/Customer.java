@@ -9,13 +9,18 @@ public class Customer extends Person {
 
     public Customer(int customerCode, String id, String name, String phoneNumber, String email, String username, String password) {
         super(id, name, phoneNumber, email, username, password);
-        this.customerCode = customerCode;
+        setCustomerCode(customerCode);
         this.purchaseHistory = new ArrayList<>();
     }
 
     public void getInvoice(Invoice invoice) {
         if (invoice != null) {
-            this.purchaseHistory.add(invoice);
+            if (this.purchaseHistory == null) {
+                this.purchaseHistory = new ArrayList<>();
+            }
+            if (!this.purchaseHistory.contains(invoice)) {
+                this.purchaseHistory.add(invoice);
+            }
         }
     }
 
@@ -24,6 +29,9 @@ public class Customer extends Person {
     }
 
     public void setCustomerCode(int customerCode) {
+        if (customerCode <= 0) {
+            throw new IllegalArgumentException("El sistema debe rechazar codigos de cliente negativos o cero");
+        }
         this.customerCode = customerCode;
     }
 
@@ -32,11 +40,15 @@ public class Customer extends Person {
     }
 
     public void setPurchaseHistory(List<Invoice> purchaseHistory) {
+        if (purchaseHistory == null) {
+            throw new IllegalArgumentException("El historial de compras no debe aceptar valores null");
+        }
         this.purchaseHistory = purchaseHistory;
     }
 
     @Override
     public String toString() {
-        return "Customer{customerCode=" + customerCode + ", " + super.getInfo() + ", comprasRealizadas=" + purchaseHistory.size() + "}";
+        int count = (purchaseHistory != null) ? purchaseHistory.size() : 0;
+        return "Customer{customerCode=" + customerCode + ", " + super.getInfo() + ", comprasRealizadas=" + count + "}";
     }
 }

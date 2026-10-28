@@ -5,8 +5,8 @@ public class Category {
     private String gender;
 
     public Category(String name, String gender) {
-        this.name = name;
-        this.gender = gender;
+        setName(name);
+        setGender(gender);
     }
 
     public String getCategoryName() {
@@ -14,7 +14,10 @@ public class Category {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("El sistema debe rechazar nombres de categorias nulos o vacios");
+        }
+        this.name = name.trim();
     }
 
     public String getGender() {
@@ -22,7 +25,16 @@ public class Category {
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        if (gender == null || gender.trim().isEmpty()) {
+            throw new IllegalArgumentException("La seccion no puede ser nula o vacia");
+        }
+        String g = gender.trim();
+        if (!g.equalsIgnoreCase("Hombres") && !g.equalsIgnoreCase("Mujeres")
+                && !g.equalsIgnoreCase("Ninos") && !g.equalsIgnoreCase("Niños")
+                && !g.equalsIgnoreCase("Accesorios")) {
+            throw new IllegalArgumentException("El sistema debe aceptar solamente secciones validas del catalogo");
+        }
+        this.gender = g;
     }
 
     public float sale(Product product) {

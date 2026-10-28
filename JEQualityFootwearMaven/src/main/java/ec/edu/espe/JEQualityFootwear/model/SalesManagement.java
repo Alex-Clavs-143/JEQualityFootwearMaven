@@ -16,7 +16,7 @@ public class SalesManagement {
 
     public SalesManagement(int systemId, float commission, float sellerSalary) {
         this.systemId = systemId;
-        this.commission = commission;
+        setCommission(commission);
         this.sellerSalary = sellerSalary;
         this.cashRegisterBalance = 200.00f;
         this.invoiceSequence = 1;
@@ -27,7 +27,7 @@ public class SalesManagement {
 
     public Invoice registerSale(Customer customer, Seller seller, List<Product> shoppingCart,
                                 List<Integer> quantities, int systemId, Payment payment, String issuanceChannel) {
-            this.invoiceSequence = this.salesRegistry.size() + 1;
+        this.invoiceSequence = this.salesRegistry.size() + 1;
         String sequenceNumber = "001-001-00000" + this.invoiceSequence;
         Invoice invoice = new Invoice(sequenceNumber, new Date(), customer, seller, shoppingCart, quantities, issuanceChannel);
         invoice.setCashTendered(payment.getAmountReceived());
@@ -90,6 +90,9 @@ public class SalesManagement {
     }
 
     public Person authenticateUser(String username, String password) {
+        if (username == null || password == null) {
+            throw new IllegalArgumentException("La autenticacion no debe aceptar credenciales nulas");
+        }
         for (StaffMember staff : staffList) {
             if (staff.getUsername().equalsIgnoreCase(username) && staff.getPassword().equals(password)) {
                 return staff;
@@ -104,6 +107,9 @@ public class SalesManagement {
     }
 
     public Person findPersonByIdOrUsername(String query) {
+        if (query == null) {
+            return null;
+        }
         for (Customer customer : customerDirectory) {
             if (customer.getId().equalsIgnoreCase(query) || customer.getUsername().equalsIgnoreCase(query)) {
                 return customer;
@@ -135,6 +141,9 @@ public class SalesManagement {
     }
 
     public Customer findCustomerById(String nationalIdOrTaxId) {
+        if (nationalIdOrTaxId == null) {
+            throw new IllegalArgumentException("La busqueda de cliente no debe aceptar un identificador nulo");
+        }
         for (Customer customer : customerDirectory) {
             if (customer.getId().equalsIgnoreCase(nationalIdOrTaxId)) {
                 return customer;
@@ -160,6 +169,9 @@ public class SalesManagement {
     }
 
     public void setCommission(float commission) {
+        if (commission < 0) {
+            throw new IllegalArgumentException("No se debe permitir un porcentaje de comision negativo");
+        }
         this.commission = commission;
     }
 
@@ -168,6 +180,9 @@ public class SalesManagement {
     }
 
     public void setCashRegisterBalance(float cashRegisterBalance) {
+        if (cashRegisterBalance < 0) {
+            throw new IllegalArgumentException("No se debe permitir un saldo de caja registradora negativo");
+        }
         this.cashRegisterBalance = cashRegisterBalance;
     }
 
