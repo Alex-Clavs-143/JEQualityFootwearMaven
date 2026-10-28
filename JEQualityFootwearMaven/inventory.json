@@ -4,14 +4,14 @@
       "productId": "ZAP-001",
       "name": "Oxford Clasico Cuero",
       "price": 65.0,
-      "currentStock": 10,
+      "currentStock": 9,
       "category": {
         "name": "Calzado Formal",
         "gender": "Hombres"
       },
       "color": "Negro",
       "size": 41,
-      "unitsSold": 2
+      "unitsSold": 3
     },
     {
       "productId": "ZAP-002",
