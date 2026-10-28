@@ -1,26 +1,26 @@
 -------------------------------------------------------------------------------
 Test set: ec.edu.espe.JEQualityFootwear.model.InventoryTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.123 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.InventoryTest
-ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetLastAuditDate -- Time elapsed: 0.003 s <<< FAILURE!
+Tests run: 12, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.157 s <<< FAILURE! -- in ec.edu.espe.JEQualityFootwear.model.InventoryTest
+ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetLastAuditDate -- Time elapsed: 0.014 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: La fecha de auditoria no debe aceptar valores null ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
 	at ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetLastAuditDate(InventoryTest.java:235)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
-ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetProducts -- Time elapsed: 0.003 s <<< FAILURE!
+ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetProducts -- Time elapsed: 0.004 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: El inventario no debe aceptar una lista de productos null ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3131)
 	at ec.edu.espe.JEQualityFootwear.model.InventoryTest.testSetProducts(InventoryTest.java:202)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:583)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 
