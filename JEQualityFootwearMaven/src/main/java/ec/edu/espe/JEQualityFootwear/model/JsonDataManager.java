@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-    
+
 public class JsonDataManager {
 
     private static final String ADMINS_FILE = "admins.json";
@@ -39,19 +39,19 @@ public class JsonDataManager {
     }
 
     public static void saveData(Inventory inventory, SalesManagement salesManagement, PromotionCalendar promotionCalendar) {
-        List<Admin> admins = new ArrayList<>();
-        List<Seller> sellers = new ArrayList<>();
+        List<Admin> adminList = new ArrayList<>();
+        List<Seller> sellerList = new ArrayList<>();
         
-        for (StaffMember staff : salesManagement.getStaffList()) {
-            if (staff instanceof Admin) {
-                admins.add((Admin) staff);
-            } else if (staff instanceof Seller) {
-                sellers.add((Seller) staff);
+        for (StaffMember staffMember : salesManagement.getStaffList()) {
+            if (staffMember instanceof Admin) {
+                adminList.add((Admin) staffMember);
+            } else if (staffMember instanceof Seller) {
+                sellerList.add((Seller) staffMember);
             }
         }
 
-        saveToFile(ADMINS_FILE, admins);
-        saveToFile(SELLERS_FILE, sellers);
+        saveToFile(ADMINS_FILE, adminList);
+        saveToFile(SELLERS_FILE, sellerList);
         saveToFile(CUSTOMERS_FILE, salesManagement.getCustomerDirectory());
         saveToFile(INVENTORY_FILE, inventory);
         saveToFile(PROMOS_FILE, promotionCalendar);
@@ -65,29 +65,29 @@ public class JsonDataManager {
         saveToFile(INVOICES_FILE, invoicesData);
     }
 
-    private static void saveToFile(String filePath, Object data) {
+    private static void saveToFile(String filePath, Object dataToSerialize) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            gson.toJson(data, writer);
-        } catch (IOException e) {
-            System.out.println("[ERROR JSON] No se pudo guardar en " + filePath + ": " + e.getMessage());
+            gson.toJson(dataToSerialize, writer);
+        } catch (IOException ioException) {
+            System.out.println("[ERROR JSON] No se pudo guardar en " + filePath + ": " + ioException.getMessage());
         }
     }
 
     public static boolean loadData(Inventory inventory, SalesManagement salesManagement, PromotionCalendar promotionCalendar) {
-        boolean loadedAny = false;
+        boolean loadedAnyFile = false;
 
         salesManagement.getStaffList().clear();
 
         File adminsFile = new File(ADMINS_FILE);
         if (adminsFile.exists()) {
             try (FileReader reader = new FileReader(adminsFile)) {
-                Type listType = new TypeToken<ArrayList<Admin>>(){}.getType();
-                List<Admin> admins = gson.fromJson(reader, listType);
-                if (admins != null) {
-                    salesManagement.getStaffList().addAll(admins);
-                    loadedAny = true;
+                Type adminListType = new TypeToken<ArrayList<Admin>>(){}.getType();
+                List<Admin> loadedAdmins = gson.fromJson(reader, adminListType);
+                if (loadedAdmins != null) {
+                    salesManagement.getStaffList().addAll(loadedAdmins);
+                    loadedAnyFile = true;
                 }
-            } catch (IOException e) {
+            } catch (IOException ioException) {
                 System.out.println("[ERROR JSON] Fallo al leer " + ADMINS_FILE);
             }
         }
@@ -95,13 +95,13 @@ public class JsonDataManager {
         File sellersFile = new File(SELLERS_FILE);
         if (sellersFile.exists()) {
             try (FileReader reader = new FileReader(sellersFile)) {
-                Type listType = new TypeToken<ArrayList<Seller>>(){}.getType();
-                List<Seller> sellers = gson.fromJson(reader, listType);
-                if (sellers != null) {
-                    salesManagement.getStaffList().addAll(sellers);
-                    loadedAny = true;
+                Type sellerListType = new TypeToken<ArrayList<Seller>>(){}.getType();
+                List<Seller> loadedSellers = gson.fromJson(reader, sellerListType);
+                if (loadedSellers != null) {
+                    salesManagement.getStaffList().addAll(loadedSellers);
+                    loadedAnyFile = true;
                 }
-            } catch (IOException e) {
+            } catch (IOException ioException) {
                 System.out.println("[ERROR JSON] Fallo al leer " + SELLERS_FILE);
             }
         }
@@ -109,37 +109,37 @@ public class JsonDataManager {
         File customersFile = new File(CUSTOMERS_FILE);
         if (customersFile.exists()) {
             try (FileReader reader = new FileReader(customersFile)) {
-                Type listType = new TypeToken<ArrayList<Customer>>(){}.getType();
-                List<Customer> customers = gson.fromJson(reader, listType);
+                Type customerListType = new TypeToken<ArrayList<Customer>>(){}.getType();
+                List<Customer> loadedCustomers = gson.fromJson(reader, customerListType);
                 salesManagement.getCustomerDirectory().clear();
-                if (customers != null) {
-                    for (Customer c : customers) {
-                        if (c.getPurchaseHistory() == null) {
-                            c.setPurchaseHistory(new ArrayList<>());
+                if (loadedCustomers != null) {
+                    for (Customer loadedCustomer : loadedCustomers) {
+                        if (loadedCustomer.getPurchaseHistory() == null) {
+                            loadedCustomer.setPurchaseHistory(new ArrayList<>());
                         }
-                        salesManagement.getCustomerDirectory().add(c);
+                        salesManagement.getCustomerDirectory().add(loadedCustomer);
                     }
-                    loadedAny = true;
+                    loadedAnyFile = true;
                 }
-            } catch (IOException e) {
+            } catch (IOException ioException) {
                 System.out.println("[ERROR JSON] Fallo al leer " + CUSTOMERS_FILE);
             }
         }
 
-        File invFile = new File(INVENTORY_FILE);
-        if (invFile.exists()) {
-            try (FileReader reader = new FileReader(invFile)) {
-                Inventory loadedInv = gson.fromJson(reader, Inventory.class);
-                if (loadedInv != null) {
-                    inventory.setProducts(loadedInv.getProducts() != null ? loadedInv.getProducts() : new ArrayList<>());
-                    if (loadedInv.getLastAuditDate() != null) {
-                        inventory.setLastAuditDate(loadedInv.getLastAuditDate());
+        File inventoryFile = new File(INVENTORY_FILE);
+        if (inventoryFile.exists()) {
+            try (FileReader reader = new FileReader(inventoryFile)) {
+                Inventory loadedInventory = gson.fromJson(reader, Inventory.class);
+                if (loadedInventory != null) {
+                    inventory.setProducts(loadedInventory.getProducts() != null ? loadedInventory.getProducts() : new ArrayList<>());
+                    if (loadedInventory.getLastAuditDate() != null) {
+                        inventory.setLastAuditDate(loadedInventory.getLastAuditDate());
                     } else {
                         inventory.setLastAuditDate(new Date());
                     }
-                    loadedAny = true;
+                    loadedAnyFile = true;
                 }
-            } catch (IOException e) {
+            } catch (IOException ioException) {
                 System.out.println("[ERROR JSON] Fallo al leer " + INVENTORY_FILE);
             }
         }
@@ -147,103 +147,103 @@ public class JsonDataManager {
         File invoicesFile = new File(INVOICES_FILE);
         if (invoicesFile.exists()) {
             try (FileReader reader = new FileReader(invoicesFile)) {
-                InvoicesData db = gson.fromJson(reader, InvoicesData.class);
-                if (db != null) {
-                    salesManagement.setSystemId(db.systemId);
-                    if (db.commission >= 0) {
-                        salesManagement.setCommission(db.commission);
+                InvoicesData loadedInvoicesData = gson.fromJson(reader, InvoicesData.class);
+                if (loadedInvoicesData != null) {
+                    salesManagement.setSystemId(loadedInvoicesData.systemId);
+                    if (loadedInvoicesData.commission >= 0) {
+                        salesManagement.setCommission(loadedInvoicesData.commission);
                     }
-                    if (db.cashRegisterBalance >= 0) {
-                        salesManagement.setCashRegisterBalance(db.cashRegisterBalance);
+                    if (loadedInvoicesData.cashRegisterBalance >= 0) {
+                        salesManagement.setCashRegisterBalance(loadedInvoicesData.cashRegisterBalance);
                     }
                     salesManagement.getSalesRegistry().clear();
-                    if (db.salesRegistry != null) {
-                        for (Invoice inv : db.salesRegistry) {
-                            salesManagement.getSalesRegistry().add(inv);
-                            if (inv.getCustomer() != null && inv.getCustomer().getId() != null) {
-                                Customer registeredCustomer = salesManagement.findCustomerById(inv.getCustomer().getId());
+                    if (loadedInvoicesData.salesRegistry != null) {
+                        for (Invoice registeredInvoice : loadedInvoicesData.salesRegistry) {
+                            salesManagement.getSalesRegistry().add(registeredInvoice);
+                            if (registeredInvoice.getCustomer() != null && registeredInvoice.getCustomer().getId() != null) {
+                                Customer registeredCustomer = salesManagement.findCustomerById(registeredInvoice.getCustomer().getId());
                                 if (registeredCustomer != null) {
-                                    registeredCustomer.getInvoice(inv);
+                                    registeredCustomer.addBillToHistory(registeredInvoice);
                                 }
                             }
                         }
                     }
-                    loadedAny = true;
+                    loadedAnyFile = true;
                 }
-            } catch (IOException e) {
+            } catch (IOException ioException) {
                 System.out.println("[ERROR JSON] Fallo al leer " + INVOICES_FILE);
             }
         }
 
-        File promoFile = new File(PROMOS_FILE);
-        if (promoFile.exists()) {
-            try (FileReader reader = new FileReader(promoFile)) {
-                PromotionCalendar loadedPromo = gson.fromJson(reader, PromotionCalendar.class);
-                if (loadedPromo != null) {
-                    if (loadedPromo.getBranchName() != null && !loadedPromo.getBranchName().trim().isEmpty()) {
-                        promotionCalendar.setBranchName(loadedPromo.getBranchName());
+        File promotionsFile = new File(PROMOS_FILE);
+        if (promotionsFile.exists()) {
+            try (FileReader reader = new FileReader(promotionsFile)) {
+                PromotionCalendar loadedPromotionCalendar = gson.fromJson(reader, PromotionCalendar.class);
+                if (loadedPromotionCalendar != null) {
+                    if (loadedPromotionCalendar.getBranchName() != null && !loadedPromotionCalendar.getBranchName().trim().isEmpty()) {
+                        promotionCalendar.setBranchName(loadedPromotionCalendar.getBranchName());
                     }
-                    promotionCalendar.setBranchAddress(loadedPromo.getBranchAddress());
-                    if (loadedPromo.getContactPhone() != null && loadedPromo.getContactPhone().trim().matches("\\d+")) {
-                        promotionCalendar.setContactPhone(loadedPromo.getContactPhone());
+                    promotionCalendar.setBranchAddress(loadedPromotionCalendar.getBranchAddress());
+                    if (loadedPromotionCalendar.getContactPhone() != null && loadedPromotionCalendar.getContactPhone().trim().matches("\\d+")) {
+                        promotionCalendar.setContactPhone(loadedPromotionCalendar.getContactPhone());
                     }
-                    if (loadedPromo.getOpeningHour() >= 0 && loadedPromo.getOpeningHour() <= 24) {
-                        promotionCalendar.setOpeningHour(loadedPromo.getOpeningHour());
+                    if (loadedPromotionCalendar.getOpeningHour() >= 0 && loadedPromotionCalendar.getOpeningHour() <= 24) {
+                        promotionCalendar.setOpeningHour(loadedPromotionCalendar.getOpeningHour());
                     }
-                    if (loadedPromo.getClosingHour() >= 0 && loadedPromo.getClosingHour() <= 24) {
-                        promotionCalendar.setClosingHour(loadedPromo.getClosingHour());
+                    if (loadedPromotionCalendar.getClosingHour() >= 0 && loadedPromotionCalendar.getClosingHour() <= 24) {
+                        promotionCalendar.setClosingHour(loadedPromotionCalendar.getClosingHour());
                     }
                     promotionCalendar.setScheduledPromotions(
-                            loadedPromo.getScheduledPromotions() != null ? loadedPromo.getScheduledPromotions() : new ArrayList<>()
+                            loadedPromotionCalendar.getScheduledPromotions() != null ? loadedPromotionCalendar.getScheduledPromotions() : new ArrayList<>()
                     );
-                    loadedAny = true;
+                    loadedAnyFile = true;
                 }
-            } catch (IOException e) {
+            } catch (IOException ioException) {
                 System.out.println("[ERROR JSON] Fallo al leer " + PROMOS_FILE);
             }
         }
 
-        return loadedAny;
+        return loadedAnyFile;
     }
 
     private static PrintWriter createCsvWriter(String fileName) throws IOException {
-        FileOutputStream fos = new FileOutputStream(fileName);
-        fos.write(0xEF);
-        fos.write(0xBB);
-        fos.write(0xBF);
-        return new PrintWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
+        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+        fileOutputStream.write(0xEF);
+        fileOutputStream.write(0xBB);
+        fileOutputStream.write(0xBF);
+        return new PrintWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
     }
 
-    private static String escapeCsv(String value) {
-        if (value == null) {
+    private static String escapeCsv(String rawValue) {
+        if (rawValue == null) {
             return "";
         }
-        String cleaned = value.replace("\"", "\"\"");
-        if (cleaned.contains(";") || cleaned.contains("\"") || cleaned.contains("\n")) {
-            return "\"" + cleaned + "\"";
+        String cleanedValue = rawValue.replace("\"", "\"\"");
+        if (cleanedValue.contains(";") || cleanedValue.contains("\"") || cleanedValue.contains("\n")) {
+            return "\"" + cleanedValue + "\"";
         }
-        return cleaned;
+        return cleanedValue;
     }
 
     public static boolean exportAdminsToCsv(SalesManagement salesManagement) {
         String fileName = "reporte_admins.csv";
         try (PrintWriter writer = createCsvWriter(fileName)) {
             writer.println("Codigo Empleado;Cedula/RUC;Nombre Completo;Telefono;Correo Electronico;Usuario;Sueldo Base ($ USD)");
-            for (StaffMember staff : salesManagement.getStaffList()) {
-                if (staff instanceof Admin) {
-                    writer.println(staff.getEmployeeCode() + ";"
-                            + escapeCsv(staff.getId()) + ";"
-                            + escapeCsv(staff.getName()) + ";"
-                            + escapeCsv(staff.getPhoneNumber()) + ";"
-                            + escapeCsv(staff.getEmail()) + ";"
-                            + escapeCsv(staff.getUsername()) + ";"
-                            + String.format("%.2f", staff.getSalary()));
+            for (StaffMember staffMember : salesManagement.getStaffList()) {
+                if (staffMember instanceof Admin) {
+                    writer.println(staffMember.getEmployeeCode() + ";"
+                            + escapeCsv(staffMember.getId()) + ";"
+                            + escapeCsv(staffMember.getName()) + ";"
+                            + escapeCsv(staffMember.getPhoneNumber()) + ";"
+                            + escapeCsv(staffMember.getEmail()) + ";"
+                            + escapeCsv(staffMember.getUsername()) + ";"
+                            + String.format("%.2f", staffMember.getSalary()));
                 }
             }
             System.out.println("[OK] Reporte generado: " + fileName);
             return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+        } catch (IOException ioException) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + ioException.getMessage());
             return false;
         }
     }
@@ -252,9 +252,9 @@ public class JsonDataManager {
         String fileName = "reporte_sellers.csv";
         try (PrintWriter writer = createCsvWriter(fileName)) {
             writer.println("Codigo Empleado;Cedula/RUC;Nombre Completo;Telefono;Correo Electronico;Usuario;Ventas Cerradas;Sueldo Base ($ USD);Comisiones ($ USD);Sueldo Total ($ USD)");
-            for (StaffMember staff : salesManagement.getStaffList()) {
-                if (staff instanceof Seller) {
-                    Seller seller = (Seller) staff;
+            for (StaffMember staffMember : salesManagement.getStaffList()) {
+                if (staffMember instanceof Seller) {
+                    Seller seller = (Seller) staffMember;
                     writer.println(seller.getEmployeeCode() + ";"
                             + escapeCsv(seller.getId()) + ";"
                             + escapeCsv(seller.getName()) + ";"
@@ -269,8 +269,8 @@ public class JsonDataManager {
             }
             System.out.println("[OK] Reporte generado: " + fileName);
             return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+        } catch (IOException ioException) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + ioException.getMessage());
             return false;
         }
     }
@@ -280,19 +280,19 @@ public class JsonDataManager {
         try (PrintWriter writer = createCsvWriter(fileName)) {
             writer.println("Codigo Cliente;Cedula/RUC;Nombre Completo;Telefono;Correo Electronico;Usuario;Compras Realizadas");
             for (Customer customer : salesManagement.getCustomerDirectory()) {
-                int purchases = customer.getPurchaseHistory() != null ? customer.getPurchaseHistory().size() : 0;
+                int completedPurchases = customer.getPurchaseHistory() != null ? customer.getPurchaseHistory().size() : 0;
                 writer.println(customer.getCustomerCode() + ";"
                         + escapeCsv(customer.getId()) + ";"
                         + escapeCsv(customer.getName()) + ";"
                         + escapeCsv(customer.getPhoneNumber()) + ";"
                         + escapeCsv(customer.getEmail()) + ";"
                         + escapeCsv(customer.getUsername()) + ";"
-                        + purchases);
+                        + completedPurchases);
             }
             System.out.println("[OK] Reporte generado: " + fileName);
             return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+        } catch (IOException ioException) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + ioException.getMessage());
             return false;
         }
     }
@@ -302,69 +302,69 @@ public class JsonDataManager {
         try (PrintWriter writer = createCsvWriter(fileName)) {
             writer.println("Codigo Producto;Modelo / Nombre;Seccion;Subcategoria;Talla;Color;Precio Unitario ($ USD);Stock Actual;Unidades Vendidas;Ingresos Generados ($ USD)");
             for (Product product : inventory.getProducts()) {
-                String section = product.getCategory() != null ? product.getCategory().getGender() : "Sin Seccion";
-                String subCat = product.getCategory() != null ? product.getCategory().getCategoryName() : "Sin Categoria";
-                float revenue = product.getUnitsSold() * product.getPrice();
+                String genderSection = product.getCategory() != null ? product.getCategory().getGender() : "Sin Seccion";
+                String subCategoryName = product.getCategory() != null ? product.getCategory().getCategoryName() : "Sin Categoria";
+                float generatedRevenue = product.getUnitsSold() * product.getPrice();
                 writer.println(escapeCsv(product.getProductId()) + ";"
                         + escapeCsv(product.getName()) + ";"
-                        + escapeCsv(section) + ";"
-                        + escapeCsv(subCat) + ";"
+                        + escapeCsv(genderSection) + ";"
+                        + escapeCsv(subCategoryName) + ";"
                         + product.getSize() + ";"
                         + escapeCsv(product.getColor()) + ";"
                         + String.format("%.2f", product.getPrice()) + ";"
                         + product.getCurrentStock() + ";"
                         + product.getUnitsSold() + ";"
-                        + String.format("%.2f", revenue));
+                        + String.format("%.2f", generatedRevenue));
             }
             System.out.println("[OK] Reporte generado: " + fileName);
             return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+        } catch (IOException ioException) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + ioException.getMessage());
             return false;
         }
     }
 
     public static boolean exportInvoicesToCsv(SalesManagement salesManagement) {
         String fileName = "reporte_invoices.csv";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat invoiceDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try (PrintWriter writer = createCsvWriter(fileName)) {
             writer.println("Nro Factura;Fecha Emision;Cedula/RUC Cliente;Nombre Cliente;Cod Vendedor;Nombre Vendedor;Detalle Productos;Subtotal ($ USD);IVA 15% ($ USD);Total Factura ($ USD);Efectivo Recibido ($ USD);Vuelto ($ USD);Canal de Entrega");
-            for (Invoice inv : salesManagement.getSalesRegistry()) {
-                StringBuilder itemsSummary = new StringBuilder();
-                if (inv.getPurchasedItems() != null && inv.getQuantities() != null) {
-                    for (int i = 0; i < inv.getPurchasedItems().size(); i++) {
-                        Product p = inv.getPurchasedItems().get(i);
-                        int q = inv.getQuantities().get(i);
-                        if (i > 0) {
-                            itemsSummary.append(" | ");
+            for (Invoice registeredInvoice : salesManagement.getSalesRegistry()) {
+                StringBuilder purchasedItemsSummary = new StringBuilder();
+                if (registeredInvoice.getPurchasedItems() != null && registeredInvoice.getPurchasedItemQuantities() != null) {
+                    for (int index = 0; index < registeredInvoice.getPurchasedItems().size(); index++) {
+                        Product purchasedProduct = registeredInvoice.getPurchasedItems().get(index);
+                        int itemQuantity = registeredInvoice.getPurchasedItemQuantities().get(index);
+                        if (index > 0) {
+                            purchasedItemsSummary.append(" | ");
                         }
-                        itemsSummary.append(q).append("x ").append(p.getName()).append(" (").append(p.getProductId()).append(")");
+                        purchasedItemsSummary.append(itemQuantity).append("x ").append(purchasedProduct.getName()).append(" (").append(purchasedProduct.getProductId()).append(")");
                     }
                 }
-                String dateStr = inv.getDate() != null ? dateFormat.format(inv.getDate()) : "";
-                String custId = inv.getCustomer() != null ? inv.getCustomer().getId() : "";
-                String custName = inv.getCustomer() != null ? inv.getCustomer().getName() : "";
-                int sellerCode = inv.getSeller() != null ? inv.getSeller().getEmployeeCode() : 0;
-                String sellerName = inv.getSeller() != null ? inv.getSeller().getName() : "";
+                String formattedDate = registeredInvoice.getDate() != null ? invoiceDateFormat.format(registeredInvoice.getDate()) : "";
+                String customerId = registeredInvoice.getCustomer() != null ? registeredInvoice.getCustomer().getId() : "";
+                String customerName = registeredInvoice.getCustomer() != null ? registeredInvoice.getCustomer().getName() : "";
+                int sellerEmployeeCode = registeredInvoice.getSeller() != null ? registeredInvoice.getSeller().getEmployeeCode() : 0;
+                String sellerName = registeredInvoice.getSeller() != null ? registeredInvoice.getSeller().getName() : "";
 
-                writer.println(escapeCsv(inv.getInvoiceNumber()) + ";"
-                        + escapeCsv(dateStr) + ";"
-                        + escapeCsv(custId) + ";"
-                        + escapeCsv(custName) + ";"
-                        + sellerCode + ";"
+                writer.println(escapeCsv(registeredInvoice.getInvoiceNumber()) + ";"
+                        + escapeCsv(formattedDate) + ";"
+                        + escapeCsv(customerId) + ";"
+                        + escapeCsv(customerName) + ";"
+                        + sellerEmployeeCode + ";"
                         + escapeCsv(sellerName) + ";"
-                        + escapeCsv(itemsSummary.toString()) + ";"
-                        + String.format("%.2f", inv.getSubtotal()) + ";"
-                        + String.format("%.2f", inv.getVatAmount()) + ";"
-                        + String.format("%.2f", inv.getTotalAmount()) + ";"
-                        + String.format("%.2f", inv.getCashTendered()) + ";"
-                        + String.format("%.2f", inv.getChangeDue()) + ";"
-                        + escapeCsv(inv.getIssuanceChannel()));
+                        + escapeCsv(purchasedItemsSummary.toString()) + ";"
+                        + String.format("%.2f", registeredInvoice.getSubtotal()) + ";"
+                        + String.format("%.2f", registeredInvoice.getVatAmount()) + ";"
+                        + String.format("%.2f", registeredInvoice.getTotalAmount()) + ";"
+                        + String.format("%.2f", registeredInvoice.getCashTendered()) + ";"
+                        + String.format("%.2f", registeredInvoice.getChangeDue()) + ";"
+                        + escapeCsv(registeredInvoice.getIssuanceChannel()));
             }
             System.out.println("[OK] Reporte generado: " + fileName);
             return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+        } catch (IOException ioException) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + ioException.getMessage());
             return false;
         }
     }
@@ -373,29 +373,29 @@ public class JsonDataManager {
         String fileName = "reporte_promotions.csv";
         try (PrintWriter writer = createCsvWriter(fileName)) {
             writer.println("Nro;Sucursal;Direccion;Telefono;Horario;Detalle de Promocion Programada");
-            String schedule = promotionCalendar.getOpeningHour() + ":00 a " + promotionCalendar.getClosingHour() + ":00";
-            List<String> promos = promotionCalendar.getScheduledPromotions();
-            if (promos == null || promos.isEmpty()) {
+            String storeSchedule = promotionCalendar.getOpeningHour() + ":00 a " + promotionCalendar.getClosingHour() + ":00";
+            List<String> scheduledPromotionsList = promotionCalendar.getScheduledPromotions();
+            if (scheduledPromotionsList == null || scheduledPromotionsList.isEmpty()) {
                 writer.println("1;"
                         + escapeCsv(promotionCalendar.getBranchName()) + ";"
                         + escapeCsv(promotionCalendar.getBranchAddress()) + ";"
                         + escapeCsv(promotionCalendar.getContactPhone()) + ";"
-                        + escapeCsv(schedule) + ";"
+                        + escapeCsv(storeSchedule) + ";"
                         + "Sin promociones activas");
             } else {
-                for (int i = 0; i < promos.size(); i++) {
-                    writer.println((i + 1) + ";"
+                for (int index = 0; index < scheduledPromotionsList.size(); index++) {
+                    writer.println((index + 1) + ";"
                             + escapeCsv(promotionCalendar.getBranchName()) + ";"
                             + escapeCsv(promotionCalendar.getBranchAddress()) + ";"
                             + escapeCsv(promotionCalendar.getContactPhone()) + ";"
-                            + escapeCsv(schedule) + ";"
-                            + escapeCsv(promos.get(i)));
+                            + escapeCsv(storeSchedule) + ";"
+                            + escapeCsv(scheduledPromotionsList.get(index)));
                 }
             }
             System.out.println("[OK] Reporte generado: " + fileName);
             return true;
-        } catch (IOException e) {
-            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + e.getMessage());
+        } catch (IOException ioException) {
+            System.out.println("[ERROR CSV] No se pudo generar " + fileName + ": " + ioException.getMessage());
             return false;
         }
     }

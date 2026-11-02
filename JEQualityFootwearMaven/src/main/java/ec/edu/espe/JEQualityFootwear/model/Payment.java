@@ -1,70 +1,82 @@
 package ec.edu.espe.JEQualityFootwear.model;
 
 public class Payment {
-    private float amountReceived;
-    private float changeGiven;
-    private float totalAmount;
+    private float cashAmountReceived;
+    private float cashChangeGiven;
+    private float totalAmountToPay;
 
-    public Payment(float amountReceived, float totalAmount) {
-        this.amountReceived = amountReceived;
-        this.totalAmount = totalAmount;
-        this.changeGiven = 0.0f;
+    public Payment(float cashAmountReceived, float totalAmountToPay) {
+        this.cashAmountReceived = cashAmountReceived;
+        this.totalAmountToPay = totalAmountToPay;
+        this.cashChangeGiven = 0.0f;
     }
 
-    public float calculateChange(float amountReceived) {
-        this.amountReceived = amountReceived;
-        if (amountReceived >= totalAmount) {
-            this.changeGiven = amountReceived - totalAmount;
+    public float calculateCashChange(float cashAmountReceived) {
+        this.cashAmountReceived = cashAmountReceived;
+        if (cashAmountReceived >= totalAmountToPay) {
+            this.cashChangeGiven = cashAmountReceived - totalAmountToPay;
         } else {
-            this.changeGiven = -1.0f;
+            this.cashChangeGiven = -1.0f;
         }
-        return this.changeGiven;
+        return this.cashChangeGiven;
+    }
+
+    public float calculateChange(float cashAmountReceived) {
+        return calculateCashChange(cashAmountReceived);
     }
 
     public boolean processPayment() {
-        if (this.amountReceived >= this.totalAmount && this.totalAmount > 0) {
-            calculateChange(this.amountReceived);
+        if (this.cashAmountReceived >= this.totalAmountToPay && this.totalAmountToPay > 0) {
+            calculateCashChange(this.cashAmountReceived);
             return true;
         }
-        this.changeGiven = 0.0f;
+        this.cashChangeGiven = 0.0f;
         return false;
     }
 
     public float getAmountReceived() {
-        return amountReceived;
+        return cashAmountReceived;
     }
 
-    public void setAmountReceived(float amountReceived) {
-        if (amountReceived < 0) {
+    public void setAmountReceived(float cashAmountReceived) {
+        if (cashAmountReceived < 0) {
             throw new IllegalArgumentException("El sistema debe rechazar montos de efectivo negativos");
         }
-        this.amountReceived = amountReceived;
+        this.cashAmountReceived = cashAmountReceived;
+    }
+
+    public float getCashChangeGiven() {
+        return cashChangeGiven;
+    }
+
+    public void setCashChangeGiven(float cashChangeGiven) {
+        if (cashChangeGiven < 0) {
+            throw new IllegalArgumentException("El vuelto entregado no debe ser negativo");
+        }
+        this.cashChangeGiven = cashChangeGiven;
     }
 
     public float getChangeGiven() {
-        return changeGiven;
+        return getCashChangeGiven();
     }
 
-    public void setChangeGiven(float changeGiven) {
-        if (changeGiven < 0) {
-            throw new IllegalArgumentException("El vuelto entregado no debe ser negativo");
-        }
-        this.changeGiven = changeGiven;
+    public void setChangeGiven(float cashChangeGiven) {
+        setCashChangeGiven(cashChangeGiven);
     }
 
     public float getTotalAmount() {
-        return totalAmount;
+        return totalAmountToPay;
     }
 
-    public void setTotalAmount(float totalAmount) {
-        if (totalAmount < 0) {
+    public void setTotalAmount(float totalAmountToPay) {
+        if (totalAmountToPay < 0) {
             throw new IllegalArgumentException("El total a pagar no debe aceptar valores negativos");
         }
-        this.totalAmount = totalAmount;
+        this.totalAmountToPay = totalAmountToPay;
     }
 
     @Override
     public String toString() {
-        return "Payment{total=$" + totalAmount + ", efectivoRecibido=$" + amountReceived + ", vueltoEntregado=$" + changeGiven + "}";
+        return "Payment{total=$" + totalAmountToPay + ", efectivoRecibido=$" + cashAmountReceived + ", vueltoEntregado=$" + cashChangeGiven + "}";
     }
 }

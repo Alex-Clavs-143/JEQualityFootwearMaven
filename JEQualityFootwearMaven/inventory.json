@@ -6,7 +6,7 @@
       "price": 65.0,
       "currentStock": 9,
       "category": {
-        "name": "Calzado Formal",
+        "productCategoryName": "Calzado Formal",
         "gender": "Hombres"
       },
       "color": "Negro",
@@ -19,7 +19,7 @@
       "price": 52.5,
       "currentStock": 8,
       "category": {
-        "name": "Calzado Deportivo",
+        "productCategoryName": "Calzado Deportivo",
         "gender": "Hombres"
       },
       "color": "Azul",
@@ -32,7 +32,7 @@
       "price": 78.0,
       "currentStock": 6,
       "category": {
-        "name": "Botas de Cuero",
+        "productCategoryName": "Botas de Cuero",
         "gender": "Mujeres"
       },
       "color": "Cafe",
@@ -45,7 +45,7 @@
       "price": 48.0,
       "currentStock": 10,
       "category": {
-        "name": "Calzado Casual",
+        "productCategoryName": "Calzado Casual",
         "gender": "Mujeres"
       },
       "color": "Beige",
@@ -58,7 +58,7 @@
       "price": 34.0,
       "currentStock": 15,
       "category": {
-        "name": "Calzado Escolar",
+        "productCategoryName": "Calzado Escolar",
         "gender": "Ninos"
       },
       "color": "Negro",
@@ -71,7 +71,7 @@
       "price": 18.5,
       "currentStock": 20,
       "category": {
-        "name": "Marroquineria",
+        "productCategoryName": "Marroquineria",
         "gender": "Accesorios"
       },
       "color": "Cafe",

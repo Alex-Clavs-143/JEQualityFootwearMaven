@@ -21,11 +21,11 @@ public class Product {
         this.unitsSold = 0;
     }
 
-    public void updateStock(int amount) {
-        if (this.currentStock + amount >= 0) {
-            this.currentStock += amount;
-            if (amount < 0) {
-                this.unitsSold += Math.abs(amount);
+    public void updateStock(int stockQuantityChange) {
+        if (this.currentStock + stockQuantityChange >= 0) {
+            this.currentStock += stockQuantityChange;
+            if (stockQuantityChange < 0) {
+                this.unitsSold += Math.abs(stockQuantityChange);
             }
         } else {
             System.out.println("[ALERTA] Operacion rechazada: El stock no puede quedar en negativo.");

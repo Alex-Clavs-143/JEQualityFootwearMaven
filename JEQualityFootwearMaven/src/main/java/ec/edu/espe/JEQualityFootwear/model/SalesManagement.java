@@ -26,17 +26,17 @@ public class SalesManagement {
     }
 
     public Invoice registerSale(Customer customer, Seller seller, List<Product> shoppingCart,
-                                List<Integer> quantities, int systemId, Payment payment, String issuanceChannel) {
+                                List<Integer> purchasedItemQuantities, int systemId, Payment payment, String issuanceChannel) {
         this.invoiceSequence = this.salesRegistry.size() + 1;
         String sequenceNumber = "001-001-00000" + this.invoiceSequence;
-        Invoice invoice = new Invoice(sequenceNumber, new Date(), customer, seller, shoppingCart, quantities, issuanceChannel);
+        Invoice invoice = new Invoice(sequenceNumber, new Date(), customer, seller, shoppingCart, purchasedItemQuantities, issuanceChannel);
         invoice.setCashTendered(payment.getAmountReceived());
-        invoice.setChangeDue(payment.getChangeGiven());
+        invoice.setChangeDue(payment.getCashChangeGiven());
 
-        for (int i = 0; i < shoppingCart.size(); i++) {
-            Product product = shoppingCart.get(i);
-            int quantity = quantities.get(i);
-            product.updateStock(-quantity);
+        for (int index = 0; index < shoppingCart.size(); index++) {
+            Product purchasedProduct = shoppingCart.get(index);
+            int purchasedQuantity = purchasedItemQuantities.get(index);
+            purchasedProduct.updateStock(-purchasedQuantity);
         }
 
         this.cashRegisterBalance += invoice.getTotalAmount();
@@ -45,14 +45,14 @@ public class SalesManagement {
         seller.addCommission(earnedCommission);
         seller.sell();
 
-        customer.getInvoice(invoice);
+        customer.addBillToHistory(invoice);
         this.salesRegistry.add(invoice);
 
         return invoice;
     }
 
-    public Payment processCashPayment(float amountReceived, float totalAmount) {
-        Payment payment = new Payment(amountReceived, totalAmount);
+    public Payment processCashPayment(float cashAmountReceived, float totalAmountToPay) {
+        Payment payment = new Payment(cashAmountReceived, totalAmountToPay);
         payment.processPayment();
         return payment;
     }
@@ -61,22 +61,22 @@ public class SalesManagement {
         if (invoice == null) {
             return "[ERROR] No se pudo generar el comprobante.";
         }
-        String receipt = invoice.getDetails();
+        String receiptDetails = invoice.getDetails();
         if (invoice.getIssuanceChannel().contains("FISICA")) {
-            receipt = receipt + "[SIMULACION IMPRESORA POS] -> Imprimiendo comprobante fisico en papel termico...\n"
+            receiptDetails = receiptDetails + "[SIMULACION IMPRESORA POS] -> Imprimiendo comprobante fisico en papel termico...\n"
                     + "[SIMULACION IMPRESORA POS] -> Factura fisica entregada al cliente en mostrador.\n";
         }
         if (invoice.getIssuanceChannel().contains("ELECTRONICA")) {
-            receipt = receipt + "[SIMULACION SERVIDOR SMTP / PDF] -> Generando archivo digital " + invoice.getInvoiceNumber() + ".pdf...\n"
+            receiptDetails = receiptDetails + "[SIMULACION SERVIDOR SMTP / PDF] -> Generando archivo digital " + invoice.getInvoiceNumber() + ".pdf...\n"
                     + "[SIMULACION SERVIDOR SMTP / PDF] -> Factura electronica enviada exitosamente a: " + invoice.getCustomer().getEmail() + "\n";
         }
-        return receipt;
+        return receiptDetails;
     }
 
     public void addCommissionToSeller() {
-        for (StaffMember staff : staffList) {
-            if (staff instanceof Seller) {
-                Seller seller = (Seller) staff;
+        for (StaffMember staffMember : staffList) {
+            if (staffMember instanceof Seller) {
+                Seller seller = (Seller) staffMember;
                 this.sellerSalary = seller.calculateSalary();
             }
         }
@@ -93,9 +93,9 @@ public class SalesManagement {
         if (username == null || password == null) {
             throw new IllegalArgumentException("La autenticacion no debe aceptar credenciales nulas");
         }
-        for (StaffMember staff : staffList) {
-            if (staff.getUsername().equalsIgnoreCase(username) && staff.getPassword().equals(password)) {
-                return staff;
+        for (StaffMember staffMember : staffList) {
+            if (staffMember.getUsername().equalsIgnoreCase(username) && staffMember.getPassword().equals(password)) {
+                return staffMember;
             }
         }
         for (Customer customer : customerDirectory) {
@@ -106,36 +106,36 @@ public class SalesManagement {
         return null;
     }
 
-    public Person findPersonByIdOrUsername(String query) {
-        if (query == null) {
+    public Person findPersonByIdOrUsername(String idOrUsernameToSearch) {
+        if (idOrUsernameToSearch == null) {
             return null;
         }
         for (Customer customer : customerDirectory) {
-            if (customer.getId().equalsIgnoreCase(query) || customer.getUsername().equalsIgnoreCase(query)) {
+            if (customer.getId().equalsIgnoreCase(idOrUsernameToSearch) || customer.getUsername().equalsIgnoreCase(idOrUsernameToSearch)) {
                 return customer;
             }
         }
-        for (StaffMember staff : staffList) {
-            if (staff.getId().equalsIgnoreCase(query) || staff.getUsername().equalsIgnoreCase(query)) {
-                return staff;
+        for (StaffMember staffMember : staffList) {
+            if (staffMember.getId().equalsIgnoreCase(idOrUsernameToSearch) || staffMember.getUsername().equalsIgnoreCase(idOrUsernameToSearch)) {
+                return staffMember;
             }
         }
         return null;
     }
 
     public StaffMember findStaffByCode(int employeeCode) {
-        for (StaffMember staff : staffList) {
-            if (staff.getEmployeeCode() == employeeCode) {
-                return staff;
+        for (StaffMember staffMember : staffList) {
+            if (staffMember.getEmployeeCode() == employeeCode) {
+                return staffMember;
             }
         }
         return null;
     }
 
     public boolean removeStaffByCode(int employeeCode) {
-        StaffMember target = findStaffByCode(employeeCode);
-        if (target != null) {
-            return staffList.remove(target);
+        StaffMember targetStaffMember = findStaffByCode(employeeCode);
+        if (targetStaffMember != null) {
+            return staffList.remove(targetStaffMember);
         }
         return false;
     }

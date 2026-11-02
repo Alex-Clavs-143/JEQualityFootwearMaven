@@ -34,7 +34,7 @@
           "price": 65.0,
           "currentStock": 11,
           "category": {
-            "name": "Calzado Formal",
+            "productCategoryName": "Calzado Formal",
             "gender": "Hombres"
           },
           "color": "Negro",
@@ -42,7 +42,7 @@
           "unitsSold": 1
         }
       ],
-      "quantities": [
+      "purchasedItemQuantities": [
         1
       ],
       "subtotal": 65.0,
@@ -83,7 +83,7 @@
           "price": 65.0,
           "currentStock": 10,
           "category": {
-            "name": "Calzado Formal",
+            "productCategoryName": "Calzado Formal",
             "gender": "Hombres"
           },
           "color": "Negro",
@@ -91,7 +91,7 @@
           "unitsSold": 2
         }
       ],
-      "quantities": [
+      "purchasedItemQuantities": [
         1
       ],
       "subtotal": 65.0,
@@ -132,7 +132,7 @@
           "price": 65.0,
           "currentStock": 9,
           "category": {
-            "name": "Calzado Formal",
+            "productCategoryName": "Calzado Formal",
             "gender": "Hombres"
           },
           "color": "Negro",
@@ -140,7 +140,7 @@
           "unitsSold": 3
         }
       ],
-      "quantities": [
+      "purchasedItemQuantities": [
         1
       ],
       "subtotal": 65.0,

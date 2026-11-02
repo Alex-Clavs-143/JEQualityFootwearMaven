@@ -13,15 +13,19 @@ public class Customer extends Person {
         this.purchaseHistory = new ArrayList<>();
     }
 
-    public void getInvoice(Invoice invoice) {
-        if (invoice != null) {
+    public void addBillToHistory(Invoice customerBill) {
+        if (customerBill != null) {
             if (this.purchaseHistory == null) {
                 this.purchaseHistory = new ArrayList<>();
             }
-            if (!this.purchaseHistory.contains(invoice)) {
-                this.purchaseHistory.add(invoice);
+            if (!this.purchaseHistory.contains(customerBill)) {
+                this.purchaseHistory.add(customerBill);
             }
         }
+    }
+
+    public void getInvoice(Invoice customerBill) {
+        addBillToHistory(customerBill);
     }
 
     public int getCustomerCode() {
@@ -48,7 +52,7 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        int count = (purchaseHistory != null) ? purchaseHistory.size() : 0;
-        return "Customer{customerCode=" + customerCode + ", " + super.getInfo() + ", comprasRealizadas=" + count + "}";
+        int completedPurchasesCount = (purchaseHistory != null) ? purchaseHistory.size() : 0;
+        return "Customer{customerCode=" + customerCode + ", " + super.getInfo() + ", comprasRealizadas=" + completedPurchasesCount + "}";
     }
 }
